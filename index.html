@@ -1,108 +1,109 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>melc.</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
-<style>
-html, body {
-height: 100%;
-width: 100%;
-margin: 0;
-padding: 0;
-background-color: #050507 !important;
-color: #f0f0f5;
-font-family: 'Syne', sans-serif;
--webkit-font-smoothing: antialiased;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>melc.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%; width: 100%;
+      margin: 0; padding: 0;
+      background-color: #050507;
+      color: #f0f0f5;
+      -webkit-font-smoothing: antialiased;
+    }
 
-```
-.page {
-height: 100vh;
-width: 100%;
-background-color: #050507;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 2.5rem;
-padding: 2rem;
-}
+    .page {
+      height: 100vh; width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.logo {
-font-family: 'Syne', sans-serif;
-font-weight: 800;
-font-size: clamp(5rem, 18vw, 11rem);
-letter-spacing: -0.04em;
-line-height: 1;
-color: #f0f0f5;
-animation: fadeUp 0.7s ease 0.1s both;
-}
-.logo span { color: #6450ff; }
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
 
-.btns {
-display: flex;
-flex-direction: row;
-gap: 0.9rem;
-flex-wrap: wrap;
-justify-content: center;
-animation: fadeUp 0.7s ease 0.25s both;
-}
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: #f0f0f5;
+      text-align: center;
+      opacity: 0;
+      filter: blur(12px);
+      transform: scale(0.94);
+      animation: logoIn 1s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+    }
+    .logo span { color: #6450ff; }
 
-.btn {
-display: flex;
-align-items: center;
-gap: 0.5rem;
-padding: 0.9rem 1.6rem;
-background: #6450ff;
-border: none;
-border-radius: 100px;
-text-decoration: none;
-color: #fff;
-font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
-font-weight: 400;
-font-size: 1rem;
-white-space: nowrap;
-box-shadow: 0 4px 24px rgba(100,80,255,0.4);
-transition: background 0.2s, transform 0.2s;
--webkit-tap-highlight-color: transparent;
-}
-.btn:hover, .btn:active {
-background: #7c6aff;
-transform: translateY(-2px);
-}
-.btn svg { width: 15px; height: 15px; opacity: 0.8; }
+    .tagline {
+      font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+      font-size: clamp(0.95rem, 3.5vw, 1.2rem);
+      color: rgba(240,240,245,0.45);
+      letter-spacing: 0.05em;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.6s ease 0.85s forwards;
+    }
 
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(18px); }
-to { opacity: 1; transform: translateY(0); }
-}
-```
+    .btns {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.4rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.6s ease 1.05s forwards;
+    }
 
-</style>
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      background: #6450ff;
+      border-radius: 100px;
+      text-decoration: none;
+      color: #fff;
+      font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+      font-size: 0.82rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(100,80,255,0.35);
+      transition: background 0.2s, transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover, .btn:active { background: #7c6aff; transform: translateY(-2px); }
+    .btn svg { width: 13px; height: 13px; opacity: 0.8; }
+
+    @keyframes logoIn {
+      to { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-<div class="page">
-
-<div class="logo">melc<span>.</span></div>
-
-<div class="btns">
-<a href="creations.html" class="btn">
-Mes créations
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-</a>
-<a href="histoire.html" class="btn">
-Mon histoire
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-</a>
-<a href="mailto:contact@melc.fr" class="btn">
-Me contacter
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-</a>
-</div>
-
-</div>
+  <div class="page">
+    <div class="center">
+      <div class="logo">melc<span>.</span></div>
+      <div class="tagline">De l'idée au réel.</div>
+      <div class="btns">
+        <a href="creations.html" class="btn">Mes créations <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="histoire.html" class="btn">Mon histoire <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="mailto:contact@melc.fr" class="btn">Me contacter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
