@@ -1,61 +1,127 @@
-/* =============================================
-melc. — Script Principal
-============================================= */
+<!DOCTYPE html>
 
-document.addEventListener(‘DOMContentLoaded’, () => {
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>melc. — Pensé en 3D. Créé pour le réel.</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-/* –– INTRO –– */
-const intro = document.getElementById(‘intro’);
-if (intro) {
-const isHome = !window.location.pathname.match(//(moto|design|pro|lab|histoire).html/);
-if (!isHome) {
-intro.style.display = ‘none’;
-} else {
-setTimeout(() => {
-intro.classList.add(‘fade-out’);
-setTimeout(() => { intro.style.display = ‘none’; }, 700);
-}, 2200);
-}
-}
+<!-- AMBIENT -->
 
-/* –– HEADER SCROLL –– */
-const header = document.querySelector(‘header’);
-if (header) {
-window.addEventListener(‘scroll’, () => {
-header.classList.toggle(‘scrolled’, window.scrollY > 40);
-}, { passive: true });
-}
+<div class="ambient ambient-1"></div>
+<div class="ambient ambient-2"></div>
 
-/* –– SCROLL REVEAL –– */
-const reveals = document.querySelectorAll(’.reveal’);
-if (reveals.length) {
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add(‘visible’);
-observer.unobserve(entry.target);
-}
-});
-}, { threshold: 0.12, rootMargin: ‘0px 0px -40px 0px’ });
-reveals.forEach(el => observer.observe(el));
-}
+<!-- INTRO -->
 
-/* –– STAGGER PROJECT CARDS –– */
-const grid = document.querySelector(’.projects-grid’);
-if (grid) {
-Array.from(grid.children).forEach((child, i) => {
-child.style.transitionDelay = (i * 0.08) + ‘s’;
-});
-}
+<div id="intro">
+<div class="intro-brand">melc<span>.</span></div>
+<div class="intro-tagline">Pensé en 3D. Créé pour le réel.</div>
+</div>
 
-/* –– AMBIENT FOLLOW –– */
-const amb1 = document.querySelector(’.ambient-1’);
-if (amb1) {
-document.addEventListener(‘mousemove’, e => {
-const x = (e.clientX / window.innerWidth - 0.5) * 60;
-const y = (e.clientY / window.innerHeight - 0.5) * 40;
-amb1.style.transform = `translate(${x}px, ${y}px)`;
-}, { passive: true });
-}
+<!-- PAGE PRINCIPALE -->
 
-});
+<main id="home">
+
+```
+<!-- HEADER -->
+<header>
+<a href="index.html" class="logo">melc<span>.</span></a>
+<nav class="header-nav">
+<a href="moto.html">Moto</a>
+<a href="design.html">Design</a>
+<a href="pro.html">Pro</a>
+<a href="lab.html">Lab</a>
+<a href="histoire.html">Mon histoire</a>
+</nav>
+</header>
+
+<!-- CONTENU CENTRÉ -->
+<div class="home-content">
+<p class="hero-eyebrow">Impression 3D — Design — Fonctionnel</p>
+<h1 class="hero-title">
+Pensé en&nbsp;<span class="accent">3D.</span><br>
+Créé pour le&nbsp;<span class="accent-2">réel.</span>
+</h1>
+<p class="hero-sub">Conception d'objets fonctionnels, techniques et design.</p>
+
+<ul class="categories-list">
+
+<li class="cat-item">
+<a href="moto.html" class="cat-link">
+<span class="cat-name">Moto</span>
+<span class="cat-meta">
+<span class="cat-count">03 projets</span>
+<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</span>
+</a>
+</li>
+
+<li class="cat-item">
+<a href="design.html" class="cat-link">
+<span class="cat-name">Design</span>
+<span class="cat-meta">
+<span class="cat-count">02 projets</span>
+<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</span>
+</a>
+</li>
+
+<li class="cat-item">
+<a href="pro.html" class="cat-link">
+<span class="cat-name">Pro</span>
+<span class="cat-meta">
+<span class="cat-count">02 projets</span>
+<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</span>
+</a>
+</li>
+
+<li class="cat-item">
+<a href="lab.html" class="cat-link">
+<span class="cat-name">Lab</span>
+<span class="cat-meta">
+<span class="cat-count">01 projet</span>
+<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</span>
+</a>
+</li>
+
+<li class="cat-item">
+<a href="histoire.html" class="cat-link">
+<span class="cat-name">Mon histoire</span>
+<span class="cat-meta">
+<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</span>
+</a>
+</li>
+
+</ul>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-brand">melc<span>.</span></div>
+<div class="footer-copy">© 2025 melc.</div>
+<div class="footer-tag">Impression <span>3D</span> — Fait en France</div>
+</footer>
+```
+
+</main>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
