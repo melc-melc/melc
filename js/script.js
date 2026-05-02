@@ -2,6 +2,16 @@
 melc. — Script Principal
 ============================================= */
 
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* –– DARK / LIGHT MODE –– */
+  function applyTheme() {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
 document.addEventListener(‘DOMContentLoaded’, () => {
 
 /* –– INTRO –– */
