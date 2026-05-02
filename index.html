@@ -4,136 +4,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>melc. — Pensé en 3D. Créé pour le réel.</title>
-<link rel="stylesheet" href="css/style.css">
+<title>melc.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+html, body {
+height: 100%;
+background: #050507;
+color: #f0f0f5;
+font-family: 'Syne', sans-serif;
+-webkit-font-smoothing: antialiased;
+}
+
+/* FOND AMBIANT */
+.amb {
+position: fixed; border-radius: 50%; pointer-events: none; filter: blur(90px); z-index: 0;
+}
+.amb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(100,80,255,0.12) 0%, transparent 70%); top: -150px; left: -100px; }
+.amb-2 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%); bottom: 0; right: -80px; }
+
+/* PAGE */
+.page {
+position: relative;
+z-index: 1;
+height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 3rem;
+padding: 2rem;
+}
+
+/* LOGO */
+.logo {
+font-size: clamp(4rem, 15vw, 9rem);
+font-weight: 800;
+letter-spacing: -0.05em;
+line-height: 1;
+animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+}
+.logo span { color: #6450ff; }
+
+/* BOUTONS */
+.btns {
+display: flex;
+flex-direction: column;
+gap: 0.75rem;
+width: 100%;
+max-width: 320px;
+animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+
+.btn {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1.1rem 1.4rem;
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 14px;
+text-decoration: none;
+color: #f0f0f5;
+font-size: 1rem;
+font-weight: 700;
+letter-spacing: -0.01em;
+transition: background 0.2s, border-color 0.2s, transform 0.2s;
+-webkit-tap-highlight-color: transparent;
+}
+.btn:hover, .btn:active {
+background: rgba(100,80,255,0.14);
+border-color: rgba(100,80,255,0.45);
+transform: translateY(-2px);
+}
+.btn svg {
+width: 18px; height: 18px;
+opacity: 0.5;
+flex-shrink: 0;
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+```
+
+</style>
 </head>
 <body>
 
-<!-- AMBIENT -->
+<div class="amb amb-1"></div>
+<div class="amb amb-2"></div>
 
-<div class="ambient ambient-1"></div>
-<div class="ambient ambient-2"></div>
-
-<!-- INTRO -->
-
-<div id="intro" onclick="this.style.display='none'">
-<div class="intro-brand">melc<span>.</span></div>
-<div class="intro-tagline">Pensé en 3D. Créé pour le réel.</div>
-</div>
-
-<script>
-// Fermeture garantie de l'intro
-setTimeout(function() {
-var intro = document.getElementById('intro');
-if (intro) {
-intro.style.opacity = '0';
-intro.style.transition = 'opacity 0.6s';
-setTimeout(function() { intro.style.display = 'none'; }, 600);
-}
-}, 2000);
-</script>
-
-<!-- PAGE PRINCIPALE -->
-
-<main id="home">
+<div class="page">
 
 ```
-<!-- HEADER -->
-<header>
-<a href="index.html" class="logo">melc<span>.</span></a>
-<nav class="header-nav">
-<a href="moto.html">Moto</a>
-<a href="design.html">Design</a>
-<a href="pro.html">Pro</a>
-<a href="lab.html">Lab</a>
-<a href="histoire.html">Mon histoire</a>
-</nav>
-</header>
+<div class="logo">melc<span>.</span></div>
 
-<!-- CONTENU CENTRÉ -->
-<div class="home-content">
-<p class="hero-eyebrow">Impression 3D — Design — Fonctionnel</p>
-<h1 class="hero-title">
-Pensé en&nbsp;<span class="accent">3D.</span><br>
-Créé pour le&nbsp;<span class="accent-2">réel.</span>
-</h1>
-<p class="hero-sub">Conception d'objets fonctionnels, techniques et design.</p>
+<div class="btns">
 
-<ul class="categories-list">
-
-<li class="cat-item">
-<a href="moto.html" class="cat-link">
-<span class="cat-name">Moto</span>
-<span class="cat-meta">
-<span class="cat-count">03 projets</span>
-<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</span>
+<a href="creations.html" class="btn">
+Mes créations
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
-</li>
 
-<li class="cat-item">
-<a href="design.html" class="cat-link">
-<span class="cat-name">Design</span>
-<span class="cat-meta">
-<span class="cat-count">02 projets</span>
-<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</span>
+<a href="histoire.html" class="btn">
+Mon histoire
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
-</li>
 
-<li class="cat-item">
-<a href="pro.html" class="cat-link">
-<span class="cat-name">Pro</span>
-<span class="cat-meta">
-<span class="cat-count">02 projets</span>
-<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</span>
+<a href="mailto:contact@melc.fr" class="btn">
+Me contacter
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
-</li>
 
-<li class="cat-item">
-<a href="lab.html" class="cat-link">
-<span class="cat-name">Lab</span>
-<span class="cat-meta">
-<span class="cat-count">01 projet</span>
-<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</span>
-</a>
-</li>
-
-<li class="cat-item">
-<a href="histoire.html" class="cat-link">
-<span class="cat-name">Mon histoire</span>
-<span class="cat-meta">
-<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</span>
-</a>
-</li>
-
-</ul>
 </div>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-brand">melc<span>.</span></div>
-<div class="footer-copy">© 2025 melc.</div>
-<div class="footer-tag">Impression <span>3D</span> — Fait en France</div>
-</footer>
 ```
 
-</main>
-
-<script src="js/script.js"></script>
+</div>
 
 </body>
 </html>
