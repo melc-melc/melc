@@ -5,8 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>melc.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,18 +13,15 @@ html, body {
 height: 100%;
 background: #050507;
 color: #f0f0f5;
-font-family: 'Syne', sans-serif;
 -webkit-font-smoothing: antialiased;
 }
 
-/* FOND AMBIANT */
 .amb {
 position: fixed; border-radius: 50%; pointer-events: none; filter: blur(90px); z-index: 0;
 }
-.amb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(100,80,255,0.12) 0%, transparent 70%); top: -150px; left: -100px; }
+.amb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(100,80,255,0.13) 0%, transparent 70%); top: -150px; left: -100px; }
 .amb-2 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%); bottom: 0; right: -80px; }
 
-/* PAGE */
 .page {
 position: relative;
 z-index: 1;
@@ -35,59 +30,60 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-gap: 3rem;
+gap: 2.5rem;
 padding: 2rem;
 }
 
-/* LOGO */
+/* LOGO — Century Gothic bold via font-face stack */
 .logo {
-font-size: clamp(4rem, 15vw, 9rem);
-font-weight: 800;
-letter-spacing: -0.05em;
+font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+font-weight: 900;
+font-size: clamp(5rem, 18vw, 11rem);
+letter-spacing: -0.04em;
 line-height: 1;
-animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+color: #f0f0f5;
+animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both;
 }
 .logo span { color: #6450ff; }
 
-/* BOUTONS */
+/* BOUTONS EN LIGNE */
 .btns {
 display: flex;
-flex-direction: column;
-gap: 0.75rem;
-width: 100%;
-max-width: 320px;
-animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+flex-direction: row;
+gap: 0.9rem;
+flex-wrap: wrap;
+justify-content: center;
+animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.25s both;
 }
 
 .btn {
 display: flex;
 align-items: center;
-justify-content: space-between;
-padding: 1.1rem 1.4rem;
-background: rgba(255,255,255,0.04);
-border: 1px solid rgba(255,255,255,0.08);
-border-radius: 14px;
+gap: 0.5rem;
+padding: 0.85rem 1.6rem;
+background: #6450ff;
+border: none;
+border-radius: 100px;
 text-decoration: none;
-color: #f0f0f5;
-font-size: 1rem;
-font-weight: 700;
-letter-spacing: -0.01em;
-transition: background 0.2s, border-color 0.2s, transform 0.2s;
+color: #fff;
+font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+font-weight: 400;
+font-size: clamp(0.85rem, 2.5vw, 1rem);
+letter-spacing: 0.01em;
+transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 -webkit-tap-highlight-color: transparent;
+white-space: nowrap;
+box-shadow: 0 4px 24px rgba(100,80,255,0.35);
 }
 .btn:hover, .btn:active {
-background: rgba(100,80,255,0.14);
-border-color: rgba(100,80,255,0.45);
+background: #7c6aff;
 transform: translateY(-2px);
+box-shadow: 0 8px 32px rgba(100,80,255,0.5);
 }
-.btn svg {
-width: 18px; height: 18px;
-opacity: 0.5;
-flex-shrink: 0;
-}
+.btn svg { width: 15px; height: 15px; opacity: 0.75; flex-shrink: 0; }
 
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(20px); }
+from { opacity: 0; transform: translateY(18px); }
 to { opacity: 1; transform: translateY(0); }
 }
 ```
@@ -108,17 +104,17 @@ to { opacity: 1; transform: translateY(0); }
 
 <a href="creations.html" class="btn">
 Mes créations
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
 
 <a href="histoire.html" class="btn">
 Mon histoire
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
 
 <a href="mailto:contact@melc.fr" class="btn">
 Me contacter
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
 
 </div>
