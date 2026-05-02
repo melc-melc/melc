@@ -90,4 +90,111 @@
     }
     .card:nth-child(1) { animation: fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 1.1s forwards; }
     .card:nth-child(2) { animation: fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 1.25s forwards; }
-    .card:nth-child(3) { animation: fadeUp 0.55s cubic-be
+    .card:nth-child(3) { animation: fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) 1.4s forwards; }
+
+    .card-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .card-num {
+      font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: rgba(100,80,255,0.65);
+      letter-spacing: 0.14em;
+    }
+    .card-label {
+      font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .card-sub {
+      font-family: 'Century Gothic', 'AppleGothic', 'Trebuchet MS', sans-serif;
+      font-weight: 400;
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .card-arrow {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(100,80,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .card:hover .card-arrow {
+      background: rgba(100,80,255,0.3);
+      transform: translateX(3px);
+    }
+    .card-arrow svg { width: 13px; height: 13px; }
+
+    @keyframes logoIn {
+      to { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* variables dark par défaut */
+    :root {
+      --bg: #050507;
+      --text: #f0f0f5;
+      --text-muted: rgba(240,240,245,0.35);
+      --card-bg: rgba(255,255,255,0.03);
+      --card-border: rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top">
+      <div class="logo">melc<span>.</span></div>
+      <div class="tagline">De l'idée au réel.</div>
+    </div>
+
+    <div class="cards">
+      <a href="creations.html" class="card">
+        <div class="card-left">
+          <span class="card-num">01</span>
+          <span class="card-label">Mes créations</span>
+          <span class="card-sub">Projets, réalisations & expériences</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6450ff" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="histoire.html" class="card">
+        <div class="card-left">
+          <span class="card-num">02</span>
+          <span class="card-label">Mon histoire</span>
+          <span class="card-sub">Parcours, vision & motivations</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6450ff" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="mailto:contact@melc.fr" class="card">
+        <div class="card-left">
+          <span class="card-num">03</span>
+          <span class="card-label">Me contacter</span>
+          <span class="card-sub">Discutons de ton projet</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6450ff" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
