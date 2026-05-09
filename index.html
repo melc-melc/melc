@@ -12,7 +12,6 @@
 
 ```
 html { scroll-behavior: smooth; background: #f5f4f2; }
-
 body {
   background: #f5f4f2;
   color: #0e0e0e;
@@ -27,27 +26,26 @@ body {
 #cur {
   position: fixed; z-index: 9999;
   width: 10px; height: 10px;
-  background: #00E639; border-radius: 50%;
+  background: #0e0e0e; border-radius: 50%;
   pointer-events: none; transform: translate(-50%,-50%);
   transition: width .2s, height .2s;
 }
 #cur-ring {
   position: fixed; z-index: 9998;
   width: 36px; height: 36px;
-  border: 1.5px solid #00E639; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.25); border-radius: 50%;
   pointer-events: none; transform: translate(-50%,-50%);
   transition: width .35s cubic-bezier(.23,1,.32,1), height .35s cubic-bezier(.23,1,.32,1);
-  opacity: .6;
 }
 body.hov #cur { width: 4px; height: 4px; }
-body.hov #cur-ring { width: 52px; height: 52px; opacity: 1; }
+body.hov #cur-ring { width: 52px; height: 52px; border-color: rgba(0,0,0,.5); }
 @media(max-width:768px){ #cur, #cur-ring { display: none; } body { cursor: auto; } }
 
 /* NOISE */
 body::before {
   content: ''; position: fixed; inset: 0; z-index: 1;
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: .03; pointer-events: none;
+  opacity: .035; pointer-events: none;
 }
 
 /* GRID */
@@ -77,7 +75,6 @@ nav {
   font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 5px;
   color: #0e0e0e; text-decoration: none; flex-shrink: 0;
 }
-.nav-logo span { color: #00E639; }
 
 .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
 @media(max-width:700px){ .nav-links { gap: 16px; } }
@@ -85,52 +82,35 @@ nav {
 .nav-links a {
   font-family: 'Space Mono', monospace; font-size: 9px;
   letter-spacing: 2px; text-transform: uppercase;
-  color: #999; text-decoration: none;
+  color: #aaa; text-decoration: none;
   transition: color .2s; position: relative; white-space: nowrap;
 }
 .nav-links a::after {
   content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 1px; background: #00E639; transition: width .3s;
+  width: 0; height: 1px; background: #0e0e0e; transition: width .3s;
 }
 .nav-links a:hover { color: #0e0e0e; }
 .nav-links a:hover::after { width: 100%; }
 
+/* Bouton contact nav — fond noir, texte BLANC */
 .nav-cta {
   display: inline-flex; align-items: center; padding: 8px 18px;
-  background: #0e0e0e; color: #f5f4f2 !important;
+  background: #0e0e0e; color: #f5f4f2;
   font-family: 'Space Mono', monospace; font-size: 9px;
   letter-spacing: 2px; text-transform: uppercase;
   text-decoration: none; font-weight: 700;
-  transition: background .2s !important;
+  transition: opacity .2s;
 }
 .nav-cta::after { display: none !important; }
-.nav-cta:hover { background: #00E639; color: #0e0e0e !important; }
+.nav-cta:hover { opacity: .75; color: #f5f4f2; }
 
 /* HERO */
 .hero {
   position: relative; z-index: 2;
-  
   display: flex; flex-direction: column; justify-content: center;
-  padding: 120px 48px 80px; overflow: hidden;
+  padding: 120px 48px 60px; overflow: hidden;
 }
-@media(max-width:600px){ .hero { padding: 80px 20px 32px; } }
-
-.orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(120px); pointer-events: none;
-  animation: drift 15s ease-in-out infinite alternate;
-}
-.orb-1 {
-  width: 560px; height: 560px;
-  background: radial-gradient(circle, rgba(0,230,57,.18) 0%, transparent 68%);
-  top: -16%; right: -8%;
-}
-.orb-2 {
-  width: 340px; height: 340px;
-  background: radial-gradient(circle, rgba(0,200,50,.1) 0%, transparent 68%);
-  top: 40%; left: -12%; animation-delay: -6s;
-}
-@keyframes drift { from{transform:translate(0,0) scale(1)} to{transform:translate(22px,38px) scale(1.06)} }
+@media(max-width:600px){ .hero { padding: 72px 20px 24px; } }
 
 .ticker-wrap {
   position: absolute; top: 50%; left: 0; right: 0;
@@ -149,36 +129,36 @@ nav {
   display: flex; align-items: center; gap: 16px; margin-bottom: 12px;
   animation: fadeUp .8s .6s both;
 }
-.hero-meta-line { width: 32px; height: 1px; background: #00E639; flex-shrink: 0; }
+.hero-meta-line { width: 32px; height: 1px; background: #0e0e0e; flex-shrink: 0; opacity: .25; }
 .hero-meta-text {
   font-family: 'Space Mono', monospace; font-size: 10px;
-  letter-spacing: 3px; text-transform: uppercase; color: #999;
+  letter-spacing: 3px; text-transform: uppercase; color: #aaa;
 }
-.hero-meta-text strong { color: #00E639; }
 
 .hero-headline {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(36px,9vw,172px);
-  line-height: .87; letter-spacing: -1px; color: #0e0e0e;
+  line-height: .87; letter-spacing: -1px;
 }
 .hero-headline .line {
   display: block;
   animation: clipUp .9s cubic-bezier(.16,1,.3,1) both;
 }
 .hero-headline .line:nth-child(1){ animation-delay:.6s; color: #0e0e0e; }
-.hero-headline .line:nth-child(2){ animation-delay:.76s; color: #00E639; }
+.hero-headline .line:nth-child(2){ animation-delay:.76s; }
 
 .hero-sub {
-  margin-top: 16px; max-width: 460px;
-  font-size: clamp(13px,1.6vw,16px); line-height: 1.6; color: #555;
+  margin-top: 12px; max-width: 460px;
+  font-size: clamp(13px,1.6vw,16px); line-height: 1.6; color: #666;
   animation: fadeUp .8s 1.05s both;
 }
 
 .hero-actions {
   display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-  margin-top: 24px; animation: fadeUp .8s 1.2s both;
+  margin-top: 16px; animation: fadeUp .8s 1.2s both;
 }
 
+/* Bouton primaire — fond noir, texte BLANC */
 .btn-primary {
   position: relative; overflow: hidden;
   display: inline-flex; align-items: center; gap: 12px;
@@ -191,89 +171,69 @@ nav {
 }
 .btn-primary::before {
   content: ''; position: absolute; inset: 0;
-  background: #00E639; transform: translateX(-102%);
+  background: #333; transform: translateX(-102%);
   transition: transform .42s cubic-bezier(.16,1,.3,1);
 }
 .btn-primary:hover::before { transform: translateX(0); }
-.btn-primary:hover { color: #0e0e0e; }
+.btn-primary:hover { color: #f5f4f2; }
 .btn-primary > * { position: relative; z-index: 1; }
 .btn-arr { transition: transform .3s; }
 .btn-primary:hover .btn-arr { transform: translateX(5px); }
 
+/* Bouton ghost — bordure noire, texte gris */
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 15px 32px; border: 1px solid rgba(0,0,0,0.12); color: #555;
+  padding: 15px 32px; border: 1px solid rgba(0,0,0,.15); color: #666;
   font-family: 'Space Mono', monospace; font-size: 10px;
   letter-spacing: 2px; text-transform: uppercase;
   text-decoration: none; transition: border-color .3s, color .3s;
 }
-.btn-ghost:hover { border-color: #00E639; color: #0e0e0e; }
-
-  position: absolute; bottom: 72px; right: 48px;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  animation: fadeUp .8s 1.5s both;
-}
-  font-family: 'Space Mono', monospace; font-size: 9px;
-  letter-spacing: 3px; text-transform: uppercase; color: #999; writing-mode: vertical-rl;
-}
-.scroll-line {
-  width: 1px; height: 52px;
-  background: linear-gradient(to bottom, #00E639, transparent);
-  animation: scrollPulse 1.9s ease-in-out infinite;
-}
-@keyframes scrollPulse { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.4);opacity:.2} }
+.btn-ghost:hover { border-color: #0e0e0e; color: #0e0e0e; }
 
 /* MARQUEE */
 .marquee-strip {
   position: relative; z-index: 2;
-  border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding: 10px 0; overflow: hidden; background: rgba(0,230,57,.04);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding: 10px 0; overflow: hidden;
 }
 .marquee-inner { display: flex; white-space: nowrap; animation: marqueeScroll 24s linear infinite; }
 .marquee-inner span {
   font-family: 'Space Mono', monospace; font-size: 10px;
-  letter-spacing: 4px; text-transform: uppercase; color: #999; padding: 0 30px;
+  letter-spacing: 4px; text-transform: uppercase; color: #ccc; padding: 0 30px;
 }
-.marquee-inner span.a { color: #00E639; }
+.marquee-inner span.a { color: #aaa; }
 @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* CRÉATIONS SECTION */
+/* CRÉATIONS */
 .creations-section {
   position: relative; z-index: 2;
-  padding: 80px 48px 80px;
+  padding: 20px 48px 40px;
 }
-@media(max-width:600px){ .creations-section { padding: 32px 20px 40px; } }
+@media(max-width:600px){ .creations-section { padding: 20px 20px 32px; } }
 
 .section-header {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 20px; flex-wrap: wrap; gap: 16px;
 }
-
 .section-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(32px,5vw,56px); letter-spacing: 1px; color: #0e0e0e;
+  font-size: clamp(28px,5vw,56px); letter-spacing: 1px; color: #0e0e0e;
 }
-
 .section-link {
   font-family: 'Space Mono', monospace; font-size: 9px;
   letter-spacing: 2px; text-transform: uppercase;
-  color: #999; text-decoration: none;
-  display: flex; align-items: center; gap: 8px;
-  transition: color .2s;
+  color: #aaa; text-decoration: none;
+  display: flex; align-items: center; gap: 8px; transition: color .2s;
 }
-.section-link:hover { color: #00E639; }
+.section-link:hover { color: #0e0e0e; }
 
-/* SLIDER HORIZONTAL */
-.slider-wrap {
-  position: relative;
-}
-
+/* SLIDER */
 .slider {
   display: flex; gap: 2px;
   overflow-x: auto; scroll-snap-type: x mandatory;
   scrollbar-width: none; -ms-overflow-style: none;
   scroll-behavior: smooth;
-  padding-bottom: 4px;
 }
 .slider::-webkit-scrollbar { display: none; }
 
@@ -283,15 +243,14 @@ nav {
   background: #eeedea;
   border: 1px solid rgba(0,0,0,0.08);
   overflow: hidden; cursor: none;
-  transition: border-color .4s, box-shadow .4s;
+  transition: border-color .4s;
 }
-.slide:hover { border-color: rgba(0,230,57,.5); box-shadow: 0 6px 30px rgba(0,230,57,.08); }
+.slide:hover { border-color: rgba(0,0,0,.25); }
 @media(max-width:900px){ .slide { flex: 0 0 calc(60% - 2px); } }
 @media(max-width:600px){ .slide { flex: 0 0 calc(80% - 2px); } }
 
 .slide-visual {
-  position: relative; aspect-ratio: 3/2; overflow: hidden;
-  background: #e8e6e2;
+  position: relative; aspect-ratio: 16/9; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
 
@@ -302,25 +261,26 @@ nav {
 }
 .slide:hover .slide-bg { transform: scale(1.05); }
 
-.bg-1 { background: linear-gradient(155deg, #e8f5e9 0%, #c8e6c9 55%, #f1f8e9 100%); }
-.bg-2 { background: linear-gradient(155deg, #e8f5e9 0%, #dcedc8 55%, #f9fbe7 100%); }
-.bg-3 { background: linear-gradient(155deg, #f1f8e9 0%, #c8e6c9 55%, #e8f5e9 100%); }
+/* Fonds beige chaud pour les slides */
+.bg-1 { background: linear-gradient(155deg, #e8e6e2 0%, #dddbd5 55%, #eae8e4 100%); }
+.bg-2 { background: linear-gradient(155deg, #e5e3de 0%, #d9d7d1 55%, #e8e6e2 100%); }
+.bg-3 { background: linear-gradient(155deg, #eae8e4 0%, #deddda 55%, #e5e3df 100%); }
 
 .slide-icon {
-  width: 50%; max-width: 110px; opacity: .2;
+  width: 50%; max-width: 110px; opacity: .18;
   transition: opacity .4s, transform .5s; position: relative; z-index: 1;
 }
-.slide:hover .slide-icon { opacity: .35; transform: scale(1.04) rotate(-1.5deg); }
+.slide:hover .slide-icon { opacity: .3; transform: scale(1.04) rotate(-1.5deg); }
 
 .slide-placeholder {
   position: absolute; bottom: 12px; left: 0; right: 0; text-align: center;
   font-family: 'Space Mono', monospace; font-size: 8px;
-  letter-spacing: 3px; text-transform: uppercase; color: rgba(0,160,36,.45);
+  letter-spacing: 3px; text-transform: uppercase; color: rgba(0,0,0,.2);
 }
 
 .slide-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(238,237,234,.92) 0%, rgba(238,237,234,.05) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(238,237,234,.88) 0%, transparent 60%);
 }
 
 .slide-info { padding: 14px 18px 18px; background: #eeedea; }
@@ -328,46 +288,42 @@ nav {
 .slide-tag {
   display: inline-block; font-family: 'Space Mono', monospace; font-size: 8px;
   letter-spacing: 3px; text-transform: uppercase;
-  color: #0e0e0e; border: 1px solid rgba(0,230,57,.45);
-  background: rgba(0,230,57,.08); padding: 3px 10px; margin-bottom: 10px;
+  color: #0e0e0e; border: 1px solid rgba(0,0,0,.15);
+  padding: 3px 10px; margin-bottom: 10px;
 }
 .slide-name {
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(18px,2.8vw,26px);
-  line-height: 1; letter-spacing: 1px; margin-bottom: 8px; color: #0e0e0e;
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(16px,2.8vw,24px);
+  line-height: 1; letter-spacing: 1px; margin-bottom: 6px; color: #0e0e0e;
 }
-.slide-desc { font-size: 12px; line-height: 1.6; color: #555; }
+.slide-desc { font-size: 12px; line-height: 1.6; color: #777; }
 
-/* Indicateur scroll */
 .slider-dots {
-  display: flex; justify-content: center; gap: 6px;
-  margin-top: 12px;
+  display: flex; justify-content: center; gap: 6px; margin-top: 12px;
 }
 .dot {
-  width: 24px; height: 3px; background: rgba(0,0,0,0.1); border-radius: 2px;
-  transition: background .3s, width .3s;
-  cursor: pointer;
+  width: 24px; height: 2px; background: rgba(0,0,0,.1); border-radius: 2px;
+  transition: background .3s, width .3s; cursor: pointer;
 }
-.dot.active { background: #00E639; width: 32px; }
+.dot.active { background: #0e0e0e; width: 32px; }
 
-/* CTA */
-.creations-cta { display: flex; justify-content: center; margin-top: 12px; }
+.creations-cta { display: flex; justify-content: center; margin-top: 20px; }
 
 /* FOOTER */
 footer {
   position: relative; z-index: 2;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
-  padding: 24px 48px; border-top: 1px solid rgba(0,0,0,0.08); background: #eeedea;
+  padding: 24px 48px; border-top: 1px solid rgba(0,0,0,0.08);
+  background: #eeedea;
 }
 @media(max-width:600px){ footer { padding: 20px; flex-direction: column; align-items: flex-start; } }
-.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 4px; color: #999; }
-.footer-logo span { color: #00E639; }
-.footer-copy { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; color: #999; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 4px; color: #bbb; }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; color: #bbb; }
 .footer-links { display: flex; gap: 24px; }
 .footer-links a {
   font-family: 'Space Mono', monospace; font-size: 9px;
-  letter-spacing: 2px; text-transform: uppercase; color: #999; text-decoration: none; transition: color .2s;
+  letter-spacing: 2px; text-transform: uppercase; color: #bbb; text-decoration: none; transition: color .2s;
 }
-.footer-links a:hover { color: #00E639; }
+.footer-links a:hover { color: #0e0e0e; }
 
 /* KEYFRAMES */
 @keyframes slideDown { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
@@ -379,7 +335,6 @@ footer {
 
 .reveal { opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1); }
 .reveal.visible { opacity:1; transform:translateY(0); }
-.rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s}
 ```
 
   </style>
@@ -389,10 +344,8 @@ footer {
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- NAV -->
-
 <nav>
-  <a href="index.html" class="nav-logo">melc<span>.</span></a>
+  <a href="index.html" class="nav-logo">melc.</a>
   <ul class="nav-links">
     <li><a href="creations.html">Créations</a></li>
     <li><a href="apropos.html">À propos</a></li>
@@ -400,12 +353,7 @@ footer {
   </ul>
 </nav>
 
-<!-- HERO -->
-
 <section class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-
   <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker">
       <span>CRÉATION</span><span>SUR MESURE</span><span>3D</span>
@@ -416,12 +364,12 @@ footer {
 
   <div class="hero-meta">
     <div class="hero-meta-line"></div>
-    <p class="hero-meta-text"><strong>melc.</strong> — Création 3D sur mesure</p>
+    <p class="hero-meta-text">melc. — Création 3D sur mesure</p>
   </div>
 
   <h1 class="hero-headline">
     <span class="line" style="color:#0e0e0e">VOUS RÊVEZ.</span>
-    <span class="line" style="color:#00E639">JE CONSTRUIS.</span>
+    <span class="line" style="color:transparent;-webkit-text-stroke:1.5px #0e0e0e">JE CONSTRUIS.</span>
   </h1>
 
   <p class="hero-sub">
@@ -435,15 +383,7 @@ footer {
     </a>
     <a href="contact.html" class="btn-ghost">Me contacter</a>
   </div>
-
-```
-<div class="scroll-line"></div>
-```
-
-  </div>
 </section>
-
-<!-- MARQUEE -->
 
 <div class="marquee-strip" aria-hidden="true">
   <div class="marquee-inner">
@@ -462,15 +402,13 @@ footer {
   </div>
 </div>
 
-<!-- DERNIÈRES CRÉATIONS -->
-
 <section class="creations-section">
   <div class="section-header reveal">
     <h2 class="section-title">DERNIÈRES CRÉATIONS</h2>
     <a href="creations.html" class="section-link">Tout voir →</a>
   </div>
 
-  <div class="slider-wrap reveal">
+  <div class="reveal">
     <div class="slider" id="slider">
 
 ```
@@ -478,10 +416,10 @@ footer {
     <div class="slide-visual">
       <div class="slide-bg bg-1">
         <svg class="slide-icon" viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="26" stroke="#00E639" stroke-width="1.5"/>
-          <path d="M34 60H14M106 60H86M60 34V14M60 106V86" stroke="#00E639" stroke-width="1.2" stroke-linecap="round"/>
-          <rect x="46" y="46" width="28" height="28" rx="3" stroke="#00E639" stroke-width="1.2"/>
-          <path d="M53 60h14M60 53v14" stroke="#00E639" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="26" stroke="#0e0e0e" stroke-width="1.5"/>
+          <path d="M34 60H14M106 60H86M60 34V14M60 106V86" stroke="#0e0e0e" stroke-width="1.2" stroke-linecap="round"/>
+          <rect x="46" y="46" width="28" height="28" rx="3" stroke="#0e0e0e" stroke-width="1.2"/>
+          <path d="M53 60h14M60 53v14" stroke="#0e0e0e" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="slide-overlay"></div>
@@ -498,11 +436,11 @@ footer {
     <div class="slide-visual">
       <div class="slide-bg bg-2">
         <svg class="slide-icon" viewBox="0 0 120 120" fill="none">
-          <path d="M22 92L60 32l38 60Z" stroke="#00E639" stroke-width="1.5" fill="none"/>
-          <path d="M38 74l22-36 22 36" stroke="#00E639" stroke-width=".8" opacity=".4" fill="none"/>
-          <circle cx="60" cy="32" r="4" fill="#00E639" opacity=".5"/>
-          <line x1="60" y1="92" x2="60" y2="102" stroke="#00E639" stroke-width="2" stroke-linecap="round"/>
-          <rect x="50" y="102" width="20" height="6" rx="2" stroke="#00E639" stroke-width="1.2" fill="none"/>
+          <path d="M22 92L60 32l38 60Z" stroke="#0e0e0e" stroke-width="1.5" fill="none"/>
+          <path d="M38 74l22-36 22 36" stroke="#0e0e0e" stroke-width=".8" opacity=".4" fill="none"/>
+          <circle cx="60" cy="32" r="4" fill="#0e0e0e" opacity=".3"/>
+          <line x1="60" y1="92" x2="60" y2="102" stroke="#0e0e0e" stroke-width="2" stroke-linecap="round"/>
+          <rect x="50" y="102" width="20" height="6" rx="2" stroke="#0e0e0e" stroke-width="1.2" fill="none"/>
         </svg>
       </div>
       <div class="slide-overlay"></div>
@@ -519,10 +457,10 @@ footer {
     <div class="slide-visual">
       <div class="slide-bg bg-3">
         <svg class="slide-icon" viewBox="0 0 120 120" fill="none">
-          <path d="M8 62 Q30 20 68 22 Q100 24 112 62" stroke="#00E639" stroke-width="1.5" fill="none"/>
-          <path d="M18 66 Q38 34 68 36 Q96 38 106 66" stroke="#00E639" stroke-width=".8" opacity=".35" fill="none"/>
-          <circle cx="112" cy="62" r="7" stroke="#00E639" stroke-width="1.2" fill="none"/>
-          <circle cx="8" cy="62" r="5" stroke="#00E639" stroke-width="1.2" fill="none"/>
+          <path d="M8 62 Q30 20 68 22 Q100 24 112 62" stroke="#0e0e0e" stroke-width="1.5" fill="none"/>
+          <path d="M18 66 Q38 34 68 36 Q96 38 106 66" stroke="#0e0e0e" stroke-width=".8" opacity=".35" fill="none"/>
+          <circle cx="112" cy="62" r="7" stroke="#0e0e0e" stroke-width="1.2" fill="none"/>
+          <circle cx="8" cy="62" r="5" stroke="#0e0e0e" stroke-width="1.2" fill="none"/>
         </svg>
       </div>
       <div class="slide-overlay"></div>
@@ -537,7 +475,6 @@ footer {
 
 </div>
 
-<!-- Dots -->
 <div class="slider-dots" id="dots">
   <div class="dot active" data-index="0"></div>
   <div class="dot" data-index="1"></div>
@@ -555,10 +492,8 @@ footer {
   </div>
 </section>
 
-<!-- FOOTER -->
-
 <footer>
-  <p class="footer-logo">melc<span>.</span></p>
+  <p class="footer-logo">melc.</p>
   <div class="footer-links">
     <a href="creations.html">Créations</a>
     <a href="apropos.html">À propos</a>
@@ -568,7 +503,6 @@ footer {
 </footer>
 
 <script>
-  // Cursor
   const cur  = document.getElementById('cur');
   const ring = document.getElementById('cur-ring');
   let mx=0,my=0,rx=0,ry=0;
@@ -586,49 +520,30 @@ footer {
     el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
   });
 
-  // Scroll reveal
   const io = new IntersectionObserver(entries=>{
     entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
   },{threshold:.08});
   document.querySelectorAll('.reveal').forEach(r=>io.observe(r));
 
-  // Parallax orbs
-  document.addEventListener('mousemove',e=>{
-    const x=(e.clientX/window.innerWidth-.5)*28;
-    const y=(e.clientY/window.innerHeight-.5)*28;
-    document.querySelectorAll('.orb').forEach((o,i)=>{
-      o.style.transform=`translate(${x*(i+1)*.4}px,${y*(i+1)*.4}px)`;
-    });
-  });
-
-  // Slider auto-scroll
   const slider = document.getElementById('slider');
   const dots   = document.querySelectorAll('.dot');
-  let current  = 0;
-  let autoPlay;
+  let current  = 0, autoPlay;
 
   function goTo(index) {
     const slides = slider.querySelectorAll('.slide');
-    const total  = slides.length;
-    current = (index + total) % total;
-    const slideWidth = slides[0].offsetWidth + 2; // +2 for gap
-    slider.scrollTo({ left: current * slideWidth, behavior: 'smooth' });
+    current = (index + slides.length) % slides.length;
+    slider.scrollTo({ left: current * (slides[0].offsetWidth + 2), behavior: 'smooth' });
     dots.forEach((d,i) => d.classList.toggle('active', i === current));
   }
 
-  function startAuto() {
-    autoPlay = setInterval(() => goTo(current + 1), 3000);
-  }
-
+  function startAuto() { autoPlay = setInterval(() => goTo(current + 1), 3000); }
   startAuto();
 
-  // Pause on touch/hover
   slider.addEventListener('touchstart', () => clearInterval(autoPlay), {passive:true});
   slider.addEventListener('touchend',   () => startAuto());
   slider.addEventListener('mouseenter', () => clearInterval(autoPlay));
   slider.addEventListener('mouseleave', () => startAuto());
 
-  // Dots click
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
       clearInterval(autoPlay);
@@ -637,10 +552,8 @@ footer {
     });
   });
 
-  // Sync dots on manual scroll
   slider.addEventListener('scroll', () => {
-    const slideWidth = slider.querySelector('.slide').offsetWidth + 2;
-    const index = Math.round(slider.scrollLeft / slideWidth);
+    const index = Math.round(slider.scrollLeft / (slider.querySelector('.slide').offsetWidth + 2));
     dots.forEach((d,i) => d.classList.toggle('active', i === index));
     current = index;
   });
