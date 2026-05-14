@@ -24,12 +24,13 @@ body{width:100%;height:100%;overflow:hidden;font-family:'Inter',-apple-system,sa
 position:absolute;inset:0;
 overflow-y:scroll;overflow-x:hidden;
 -webkit-overflow-scrolling:touch;
+visibility:hidden;
 opacity:0;pointer-events:none;
 transform:translateY(16px);
-transition:opacity .38s cubic-bezier(.22,1,.36,1),transform .38s cubic-bezier(.22,1,.36,1);
+transition:opacity .38s cubic-bezier(.22,1,.36,1),transform .38s cubic-bezier(.22,1,.36,1),visibility 0s .38s;
 background:var(–bg);
 }
-.page.active{opacity:1;transform:none;pointer-events:all}
+.page.active{opacity:1;transform:none;pointer-events:all;visibility:visible;transition:opacity .38s cubic-bezier(.22,1,.36,1),transform .38s cubic-bezier(.22,1,.36,1),visibility 0s 0s}
 #page-histoire{background:linear-gradient(170deg,#1a72b8 0%,#0d4f8c 50%,#082e5e 100%)}
 #page-contact{background:var(–bg)}
 
@@ -94,22 +95,17 @@ background:linear-gradient(180deg,#0a0a1a 0%,#050510 100%) !important;
 @keyframes animR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
 /* ══ SCROLL REVEAL ══ */
-.rv{opacity:0;transition:none}
+.rv{opacity:0.01;transform:translateY(28px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
 .rv.up{transform:translateY(28px)}
 .rv.down{transform:translateY(-20px)}
 .rv.left{transform:translateX(28px)}
 .rv.right{transform:translateX(-28px)}
 .rv.pop{transform:translateY(20px)}
-.rv.in{opacity:1;transform:none;
-transition:opacity .6s cubic-bezier(.22,1,.36,1),
-transform .6s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
 .rv.in.d1{transition-delay:.08s}.rv.in.d2{transition-delay:.16s}
 .rv.in.d3{transition-delay:.24s}.rv.in.d4{transition-delay:.32s}
 
 /* ══ HOME ══ */
-.hero-wrap{position:relative;padding:54px 22px 0;display:flex;justify-content:center}
-.hero-card{background:#fff;border-radius:28px;padding:38px 34px 90px;width:100%;max-width:440px;box-shadow:0 2px 48px rgba(0,0,0,.08);animation:breathe 9s ease-in-out infinite;position:relative;z-index:1;opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
-.hero-card.show{opacity:1;transform:translateY(0)}
 .htag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(–blue-dark);background:rgba(90,200,250,.12);padding:4px 11px;border-radius:99px;margin-bottom:16px}
 .htitle{font-size:clamp(30px,7vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.07;margin-bottom:11px}
 .hsub{font-size:14px;color:var(–gray);line-height:1.6;margin-bottom:24px}
@@ -454,6 +450,824 @@ transition:transform .18s ease, box-shadow .18s ease;
 .how-cta:hover { transform:scale(1.02); box-shadow:0 8px 24px rgba(0,0,0,.18); }
 .how-cta:active { transform:scale(.96); }
 
+/* ══ HERO DRAMATIQUE ══ */
+.hero-dramatic {
+position:relative;
+width:100%;
+height:100vh;
+min-height:600px;
+background:#0a0a0f;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+flex-shrink:0;
+}
+
+#heroCanvas {
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+opacity:.55;
+}
+
+.hero-overlay {
+position:absolute;
+inset:0;
+background:
+radial-gradient(ellipse 80% 60% at 30% 50%, rgba(90,200,250,.08) 0%, transparent 60%),
+linear-gradient(to bottom, rgba(10,10,15,0) 50%, rgba(10,10,15,.95) 100%);
+pointer-events:none;
+}
+
+.hero-content {
+position:relative;
+z-index:2;
+padding:0 28px;
+padding-top:80px;
+max-width:420px;
+}
+
+.htag {
+display:inline-block;
+font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+color:rgba(90,200,250,.85);
+background:rgba(90,200,250,.1);
+border:1px solid rgba(90,200,250,.25);
+padding:5px 13px;border-radius:99px;
+margin-bottom:20px;
+opacity:0;transform:translateY(16px);
+transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1);
+}
+.htag.show{opacity:1;transform:translateY(0)}
+
+.htitle-big {
+font-size:clamp(38px,9vw,58px);
+font-weight:900;
+letter-spacing:-.04em;
+line-height:1.04;
+color:#fff;
+margin-bottom:18px;
+}
+
+.word {
+display:inline-block;
+opacity:0;
+transform:translateY(30px);
+transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);
+}
+.word.show{opacity:1;transform:translateY(0)}
+#w2{transition-delay:.12s}
+#w3{transition-delay:.24s}
+
+.accent-word { color:var(–blue); }
+
+.hsub-big {
+font-size:15px;
+color:rgba(255,255,255,.6);
+line-height:1.6;
+margin-bottom:28px;
+font-weight:400;
+opacity:0;transform:translateY(14px);
+transition:opacity .6s .36s ease,transform .6s .36s cubic-bezier(.22,1,.36,1);
+}
+.hsub-big.show{opacity:1;transform:translateY(0)}
+
+.hero-btns {
+display:flex;gap:10px;flex-wrap:wrap;
+opacity:0;transform:translateY(14px);
+transition:opacity .6s .48s ease,transform .6s .48s cubic-bezier(.22,1,.36,1);
+}
+.hero-btns.show{opacity:1;transform:translateY(0)}
+
+.hbtn-big {
+display:inline-flex;align-items:center;gap:7px;
+background:#fff;color:#0a0a0f;
+font-size:14px;font-weight:700;
+padding:13px 24px;border-radius:99px;
+border:none;cursor:pointer;font-family:inherit;
+letter-spacing:-.01em;
+transition:transform .18s ease,box-shadow .18s ease;
+box-shadow:0 4px 20px rgba(255,255,255,.15);
+}
+.hbtn-big:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(255,255,255,.25)}
+.hbtn-big:active{transform:scale(.95)}
+
+.hbtn-ghost {
+display:inline-flex;align-items:center;gap:7px;
+background:rgba(255,255,255,.08);
+color:rgba(255,255,255,.85);
+font-size:14px;font-weight:600;
+padding:13px 22px;border-radius:99px;
+border:1px solid rgba(255,255,255,.18);
+cursor:pointer;font-family:inherit;
+letter-spacing:-.01em;
+transition:background .18s ease,transform .18s ease;
+}
+.hbtn-ghost:hover{background:rgba(255,255,255,.14);transform:scale(1.03)}
+.hbtn-ghost:active{transform:scale(.95)}
+
+/* iPhone position sur hero dramatique */
+.hero-phone-wrap {
+position:absolute;
+bottom:-40px;
+right:-10px;
+z-index:3;
+opacity:0;
+transform:translateY(30px) rotate(4deg);
+transition:opacity .9s .3s cubic-bezier(.22,1,.36,1),transform .9s .3s cubic-bezier(.22,1,.36,1);
+}
+.hero-phone-wrap.show{opacity:1;transform:rotate(3deg);animation:phonefloat 5s 1.2s ease-in-out infinite}
+
+/* Scroll hint */
+.scroll-hint {
+position:absolute;
+bottom:28px;left:50%;transform:translateX(-50%);
+display:flex;flex-direction:column;align-items:center;gap:6px;
+opacity:0;
+animation:scrollHintFade 1.5s 1.5s ease forwards;
+z-index:4;
+}
+.scroll-hint-line {
+width:1.5px;height:36px;
+background:linear-gradient(to bottom,rgba(255,255,255,.6),rgba(255,255,255,0));
+animation:scrollLineDrop 1.5s 1.5s ease-in-out infinite;
+}
+.scroll-hint span {
+font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+color:rgba(255,255,255,.4);
+}
+@keyframes scrollHintFade{to{opacity:1}}
+@keyframes scrollLineDrop{
+0%,100%{transform:scaleY(1);opacity:.6}
+50%{transform:scaleY(.5);opacity:.2}
+}
+
+/* home scroll area */
+.home-scroll{padding:0 22px 130px}
+
+/* ══════════════════════════════
+SCROLL CINÉMATIQUE — HOME
+══════════════════════════════ */
+
+/* Chaque scène = 100vh */
+.scene {
+position: relative;
+width: 100%;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+.scene-light { background: var(–bg); }
+.scene-dark  { background: #0a0a0f; }
+
+/* ── SCENE 1 ── */
+#s1 { background:#0a0a0f; flex-direction:column; align-items:flex-start; justify-content:center; }
+#heroCanvas { position:absolute;inset:0;width:100%;height:100%;opacity:.55; }
+.s1-overlay {
+position:absolute;inset:0;
+background:
+radial-gradient(ellipse 80% 60% at 25% 50%,rgba(90,200,250,.09) 0%,transparent 60%),
+linear-gradient(to bottom,rgba(10,10,15,0) 40%,rgba(10,10,15,.98) 100%);
+pointer-events:none;
+}
+.s1-content { position:relative;z-index:2;padding:0 28px;padding-top:90px;max-width:460px; }
+
+.s1-tag {
+display:inline-block;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+color:rgba(90,200,250,.9);background:rgba(90,200,250,.1);border:1px solid rgba(90,200,250,.25);
+padding:5px 13px;border-radius:99px;margin-bottom:22px;
+opacity:0;transform:translateY(14px);
+transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1);
+}
+.s1-tag.show{opacity:1;transform:translateY(0)}
+
+.s1-title {
+font-size:clamp(40px,10vw,62px);font-weight:900;letter-spacing:-.04em;
+line-height:1.03;color:#fff;margin-bottom:20px;
+display:flex;flex-direction:column;gap:2px;
+}
+.sl {
+display:block;
+opacity:0;transform:translateX(-30px);
+transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);
+}
+.sl.show{opacity:1;transform:translateX(0)}
+.sl.accent{color:var(–blue)}
+#sl2{transition-delay:.1s}#sl3{transition-delay:.2s}
+
+.s1-sub {
+font-size:15px;color:rgba(255,255,255,.58);line-height:1.6;margin-bottom:30px;
+opacity:0;transform:translateY(12px);
+transition:opacity .6s .3s ease,transform .6s .3s cubic-bezier(.22,1,.36,1);
+}
+.s1-sub.show{opacity:1;transform:translateY(0)}
+
+.s1-btns {
+display:flex;gap:10px;flex-wrap:wrap;
+opacity:0;transform:translateY(12px);
+transition:opacity .6s .42s ease,transform .6s .42s cubic-bezier(.22,1,.36,1);
+}
+.s1-btns.show{opacity:1;transform:translateY(0)}
+
+.btn-white {
+display:inline-flex;align-items:center;gap:7px;
+background:#fff;color:#0a0a0f;
+font-size:14px;font-weight:700;padding:13px 24px;
+border-radius:99px;border:none;cursor:pointer;font-family:inherit;
+letter-spacing:-.01em;box-shadow:0 4px 20px rgba(255,255,255,.15);
+transition:transform .18s ease;
+}
+.btn-white:active{transform:scale(.94)}
+
+.btn-ghost {
+display:inline-flex;align-items:center;gap:7px;
+background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);
+font-size:14px;font-weight:600;padding:13px 22px;
+border-radius:99px;border:1px solid rgba(255,255,255,.18);
+cursor:pointer;font-family:inherit;transition:background .18s ease;
+}
+.btn-ghost:active{background:rgba(255,255,255,.15)}
+
+/* iPhone */
+.s1-phone, .hero-phone-wrap {
+position:absolute;bottom:-30px;right:-8px;z-index:3;
+opacity:0;transform:translateY(28px) rotate(4deg);
+transition:opacity .9s .35s cubic-bezier(.22,1,.36,1),transform .9s .35s cubic-bezier(.22,1,.36,1);
+}
+.s1-phone.show{opacity:1;transform:rotate(3deg);animation:phonefloat 5s 1.2s ease-in-out infinite}
+
+/* Scroll cue */
+.scroll-cue {
+position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+display:flex;flex-direction:column;align-items:center;gap:6px;
+opacity:0;animation:fadeIn 1s 1.8s ease forwards;z-index:4;
+transition:opacity .4s ease;
+}
+.scroll-cue-line {
+width:1.5px;height:34px;
+background:linear-gradient(to bottom,rgba(255,255,255,.55),transparent);
+animation:linePulse 1.4s ease-in-out infinite;
+}
+.scroll-cue span{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.38)}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes linePulse{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+
+/* ── SCENE 2 : STATS ── */
+#s2 { flex-direction:column; }
+.s2-inner { width:100%;max-width:480px;padding:0 28px; }
+
+.s2-num-block {
+padding:32px 0;
+border-bottom:1px solid rgba(0,0,0,.07);
+opacity:0;transform:translateY(36px);
+transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);
+}
+.s2-num-block.show{opacity:1;transform:translateY(0)}
+#sb2.show{transition-delay:.12s}#sb3.show{transition-delay:.24s}
+
+.s2-num {
+font-size:clamp(52px,13vw,80px);font-weight:900;
+letter-spacing:-.04em;color:var(–black);line-height:1;
+margin-bottom:10px;
+}
+.s2-bar {
+height:4px;background:rgba(0,0,0,.07);border-radius:99px;
+overflow:hidden;margin-bottom:10px;
+}
+.s2-bar-fill {
+height:100%;border-radius:99px;width:0%;
+transition:width 2.8s cubic-bezier(.22,1,.36,1);
+}
+.s2-num-block.show .s2-bar-fill { width:100%; }
+.s2-lbl { font-size:13px;color:var(–gray);font-weight:500; }
+
+/* ── SCENE 3 : PHRASE IMPACT ── */
+#s3 { flex-direction:column; }
+.s3-inner { padding:0 28px;max-width:460px; }
+.s3-kicker {
+font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+color:rgba(90,200,250,.7);margin-bottom:24px;
+opacity:0;transform:translateY(14px);
+transition:opacity .5s ease,transform .5s ease;
+}
+.s3-kicker.show{opacity:1;transform:translateY(0)}
+
+.s3-big {
+font-size:clamp(38px,9vw,56px);font-weight:900;
+letter-spacing:-.04em;line-height:1.08;color:#fff;
+margin-bottom:28px;
+}
+.s3-word {
+display:inline-block;margin-right:10px;
+opacity:0;transform:translateY(28px);
+transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);
+}
+.s3-word.show{opacity:1;transform:translateY(0)}
+.s3-accent{color:var(–blue)}
+#s3w2.show{transition-delay:.05s}#s3w3.show{transition-delay:.1s}
+#s3w4.show{transition-delay:.15s}#s3w5.show{transition-delay:.2s}
+#s3w6.show{transition-delay:.25s}#s3w7.show{transition-delay:.3s}
+
+.s3-sub {
+font-size:14px;color:rgba(255,255,255,.5);line-height:1.65;
+opacity:0;transform:translateY(12px);
+transition:opacity .6s .35s ease,transform .6s .35s ease;
+}
+.s3-sub.show{opacity:1;transform:translateY(0)}
+
+/* ── SCENE 4 : CATÉGORIES ── */
+#s4 { flex-direction:column; }
+.s4-inner { width:100%;max-width:480px;padding:0 28px; }
+.s4-title {
+font-size:clamp(28px,6vw,40px);font-weight:800;letter-spacing:-.03em;
+margin-bottom:28px;
+opacity:0;transform:translateY(20px);
+transition:opacity .6s ease,transform .6s ease;
+}
+.s4-title.show{opacity:1;transform:translateY(0)}
+
+.s4-cats { display:flex;flex-direction:column;gap:12px; }
+.s4-cat {
+background:#fff;border-radius:20px;padding:20px 18px;
+display:flex;align-items:center;gap:14px;
+cursor:pointer;
+box-shadow:0 2px 16px rgba(0,0,0,.07);
+opacity:0;transform:translateX(-28px);
+transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),box-shadow .2s ease;
+}
+.s4-cat:active{transform:scale(.97)}
+.s4-cat.show{opacity:1;transform:translateX(0)}
+#sc2.show{transition-delay:.1s}#sc3.show{transition-delay:.2s}
+.s4-cat-icon{font-size:26px;flex-shrink:0}
+.s4-cat-name{font-size:15px;font-weight:700;letter-spacing:-.02em}
+.s4-cat-desc{font-size:12px;color:var(–gray);margin-top:2px}
+.s4-cat-arrow{margin-left:auto;font-size:18px;color:var(–gray)}
+
+/* ── SCENE 5 : MATÉRIAUX ── */
+#s5 { flex-direction:column; }
+.s5-inner { width:100%;max-width:480px;padding:0 28px; }
+.s5-title {
+font-size:clamp(28px,6vw,40px);font-weight:800;letter-spacing:-.03em;
+color:#fff;margin-bottom:32px;
+opacity:0;transform:translateY(20px);
+transition:opacity .6s ease,transform .6s ease;
+}
+.s5-title.show{opacity:1;transform:translateY(0)}
+.s5-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+.s5-mat {
+display:flex;align-items:center;gap:10px;
+padding:16px 16px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);
+border-radius:14px;
+font-size:13px;font-weight:600;color:#fff;
+opacity:0;transform:translateY(20px);
+transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);
+}
+.s5-mat.show{opacity:1;transform:translateY(0)}
+#sm2.show{transition-delay:.06s}#sm3.show{transition-delay:.12s}
+#sm4.show{transition-delay:.18s}#sm5.show{transition-delay:.24s}#sm6.show{transition-delay:.3s}
+.s5-mat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── SCENE 6 : AVIS ── */
+#s6 { flex-direction:column; }
+.s6-inner { width:100%;max-width:480px;padding:0 28px; }
+.s6-title {
+font-size:clamp(28px,6vw,40px);font-weight:800;letter-spacing:-.03em;
+margin-bottom:28px;
+opacity:0;transform:translateY(20px);
+transition:opacity .6s ease,transform .6s ease;
+}
+.s6-title.show{opacity:1;transform:translateY(0)}
+.s6-cards{display:flex;flex-direction:column;gap:12px;padding-bottom:40px}
+.s6-card {
+background:#fff;border-radius:18px;padding:20px 18px;
+box-shadow:0 2px 14px rgba(0,0,0,.07);
+opacity:0;transform:translateY(24px);
+transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);
+}
+.s6-card.show{opacity:1;transform:translateY(0)}
+#sa2.show{transition-delay:.1s}#sa3.show{transition-delay:.2s}
+.s6-stars{font-size:13px;color:#f5a623;letter-spacing:2px;margin-bottom:10px}
+.s6-txt{font-size:13px;color:var(–gray);line-height:1.6;font-style:italic;margin-bottom:12px}
+.s6-name{font-size:12px;font-weight:700;color:var(–black)}
+
+/* remove old home styles that conflict */
+.home-scroll{display:none}
+
+/* ══ HOME — fond clair premium ══ */
+#page-home {
+background: #f5f5f7;
+overflow: hidden;
+}
+
+#heroCanvas {
+position: absolute;
+inset: 0; width: 100%; height: 100%;
+opacity: 1;
+}
+
+/* watermark */
+.home-watermark {
+position: absolute; top: 22px; left: 24px;
+font-size: 17px; font-weight: 900; letter-spacing: -.05em;
+color: rgba(0,0,0,.12); z-index: 2;
+pointer-events: none;
+}
+
+/* ── CENTRE ── */
+.home-center {
+position: absolute;
+top: 50%; left: 50%;
+transform: translate(-50%, -54%);
+display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+z-index: 3;
+}
+
+/* anneaux tournants */
+.hc-ring {
+position: absolute;
+border-radius: 50%;
+border: 1px solid rgba(0,113,227,.14);
+animation: ringRotate 12s linear infinite;
+}
+.hc-ring-1 { width:220px; height:220px; animation-duration:14s; }
+.hc-ring-2 { width:300px; height:300px; border-color:rgba(0,113,227,.07); animation-duration:20s; animation-direction:reverse; }
+.hc-ring-3 { width:380px; height:380px; border-color:rgba(0,113,227,.04); animation-duration:28s; }
+
+/* point lumineux sur chaque anneau */
+.hc-ring::after {
+content:’’; position:absolute;
+width:5px; height:5px; border-radius:50%;
+background:rgba(90,200,250,.8);
+top:-2.5px; left:50%; transform:translateX(-50%);
+box-shadow:0 0 10px rgba(90,200,250,.8);
+}
+
+@keyframes ringRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* objet central */
+.hc-obj-wrap {
+position: relative;
+display: flex; align-items: center; justify-content: center;
+}
+.hc-obj {
+font-size: 80px;
+position: relative; z-index: 2;
+animation: objFloat 4s ease-in-out infinite;
+filter: drop-shadow(0 8px 32px rgba(0,0,0,.15)) drop-shadow(0 0 20px rgba(0,113,227,.25));
+transition: opacity .4s ease, transform .4s ease;
+}
+@keyframes objFloat {
+0%,100%{ transform: translateY(0) scale(1); }
+50%{ transform: translateY(-12px) scale(1.04); }
+}
+.hc-obj-glow {
+position: absolute;
+width: 120px; height: 120px; border-radius: 50%;
+background: radial-gradient(circle, rgba(0,113,227,.15) 0%, transparent 70%);
+animation: glowPulse 3s ease-in-out infinite;
+}
+@keyframes glowPulse {
+0%,100%{ transform:scale(1); opacity:.7; }
+50%{ transform:scale(1.3); opacity:1; }
+}
+
+.hc-label {
+margin-top: 20px;
+font-size: 11px; font-weight: 600;
+letter-spacing: .18em; text-transform: uppercase;
+color: rgba(0,113,227,.8);
+opacity: 0; transform: translateY(6px);
+transition: opacity .4s ease, transform .4s ease;
+}
+.hc-label.show { opacity:1; transform:translateY(0); }
+
+/* ── BAS ── */
+.home-bottom {
+position: absolute;
+bottom: 110px; left: 0; right: 0;
+display: flex; flex-direction: column;
+align-items: center; gap: 20px;
+z-index: 3;
+}
+
+.home-tagline {
+display: flex; flex-direction: column; align-items: center;
+gap: 2px; text-align: center;
+}
+.home-tagline span {
+font-size: 15px; font-weight: 700;
+color: rgba(0,0,0,.45); letter-spacing: -.01em;
+opacity: 0; transform: translateY(10px);
+transition: opacity .6s ease, transform .6s ease;
+}
+.home-tagline span.show { opacity:1; transform:translateY(0); }
+.ht-accent { color: rgba(0,113,227,.9) !important; }
+#ht2 { transition-delay: .12s; }
+
+.home-cta-btn {
+background: #1d1d1f;
+border: 1px solid rgba(0,0,0,.08);
+color: #fff; font-size: 13px; font-weight: 600;
+padding: 12px 28px; border-radius: 99px;
+cursor: pointer; font-family: inherit; letter-spacing: -.01em;
+transition: background .2s ease, transform .15s ease;
+opacity: 0; transform: translateY(10px);
+animation: fadeUpBtn 0s ease forwards;
+}
+.home-cta-btn.show { opacity:1; transform:translateY(0); transition:opacity .6s .3s ease,transform .6s .3s ease,background .2s ease; }
+.home-cta-btn:active { transform: scale(.94); }
+.home-cta-btn:hover { background: rgba(255,255,255,.15); }
+
+/* ── STATS flottantes ── */
+.home-stat {
+position: absolute; z-index: 3;
+display: flex; flex-direction: column; gap: 1px;
+opacity: 0; transition: opacity .6s ease, transform .6s ease;
+}
+.home-stat.show { opacity:1; transform:none !important; }
+.home-stat-tl { top:22%; left:28px; transform:translateX(-16px); transition-delay:.2s; }
+.home-stat-tr { top:22%; right:28px; transform:translateX(16px); text-align:right; transition-delay:.3s; }
+
+.hstat-n {
+font-size: 28px; font-weight: 900;
+letter-spacing: -.04em; color: var(–black); line-height:1;
+}
+.hstat-l {
+font-size: 9px; font-weight: 500;
+letter-spacing: .1em; text-transform: uppercase;
+color: rgba(0,0,0,.35);
+}
+
+/* ── NAV PILLS ── */
+.home-nav-pills {
+position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%);
+display: flex; gap: 8px; z-index: 3;
+opacity: 0; transition: opacity .6s .5s ease;
+}
+.home-nav-pills.show { opacity:1; }
+.hnp {
+background: rgba(0,0,0,.06);
+border: 1px solid rgba(0,0,0,.1);
+color: rgba(0,0,0,.55);
+font-size: 11px; font-weight: 600;
+padding: 8px 16px; border-radius: 99px;
+cursor: pointer; font-family: inherit;
+letter-spacing: .02em;
+transition: background .18s ease, color .18s ease;
+}
+.hnp:active { background: rgba(0,0,0,.12); color:var(–black); }
+
+/* hide old home-scroll */
+.home-scroll { display:none !important; }
+.hero-wrap,.hero-card,.hero-dramatic,.s1-content,
+.s2-inner,.s3-inner,.s4-inner,.s5-inner,.s6-inner,
+.scene { display:none !important; }
+
+/* ══ HOME LIGHT — améliorations design ══ */
+
+/* Anneaux plus beaux avec dégradé */
+.hc-ring {
+background: transparent;
+}
+.hc-ring-1 {
+background: conic-gradient(
+from 0deg,
+rgba(0,113,227,.18) 0%,
+rgba(90,200,250,.08) 25%,
+transparent 50%,
+rgba(0,113,227,.18) 100%
+);
+border: none !important;
+border-radius: 50%;
+}
+.hc-ring-2 {
+background: conic-gradient(
+from 120deg,
+rgba(0,113,227,.08) 0%,
+transparent 40%,
+rgba(90,200,250,.06) 70%,
+transparent 100%
+);
+border: none !important;
+}
+.hc-ring-3 {
+background: conic-gradient(
+from 240deg,
+rgba(0,113,227,.05) 0%,
+transparent 50%,
+rgba(0,113,227,.04) 100%
+);
+border: none !important;
+}
+
+/* Points sur les anneaux — override */
+.hc-ring::after {
+background: rgba(0,113,227,.85);
+box-shadow: 0 0 14px rgba(0,113,227,.6), 0 0 4px rgba(0,113,227,1);
+}
+
+/* Objet plus grand */
+.hc-obj {
+font-size: 96px !important;
+}
+
+/* Glow blob derrière l’objet */
+.hc-obj-glow {
+width: 160px !important; height: 160px !important;
+background: radial-gradient(circle, rgba(0,113,227,.12) 0%, rgba(90,200,250,.06) 45%, transparent 70%) !important;
+}
+
+/* Label sous l’objet — plus visible */
+.hc-label {
+font-size: 12px !important;
+letter-spacing: .2em !important;
+color: rgba(0,113,227,.75) !important;
+background: rgba(0,113,227,.07);
+padding: 6px 16px;
+border-radius: 99px;
+border: 1px solid rgba(0,113,227,.12);
+}
+
+/* Stats — glass cards */
+.home-stat {
+background: rgba(255,255,255,.75);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+border: 1px solid rgba(255,255,255,.9);
+border-radius: 18px;
+padding: 14px 18px;
+box-shadow: 0 4px 24px rgba(0,0,0,.07);
+}
+.hstat-n {
+font-size: 32px !important;
+background: linear-gradient(135deg, var(–black) 0%, rgba(0,113,227,.8) 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+.hstat-l {
+font-size: 10px !important;
+color: rgba(0,0,0,.4) !important;
+margin-top: 2px;
+}
+
+/* Tagline — plus grande et bold */
+.home-tagline span {
+font-size: 18px !important;
+font-weight: 800 !important;
+letter-spacing: -.03em !important;
+color: rgba(0,0,0,.5) !important;
+}
+
+/* CTA button — plus large, plus premium */
+.home-cta-btn {
+font-size: 15px !important;
+font-weight: 700 !important;
+padding: 15px 36px !important;
+box-shadow: 0 8px 28px rgba(0,0,0,.2);
+letter-spacing: -.02em !important;
+}
+.home-cta-btn:hover { box-shadow: 0 12px 36px rgba(0,0,0,.28); }
+
+/* Nav pills — plus design */
+.home-nav-pills {
+bottom: 68px !important;
+gap: 10px !important;
+}
+.hnp {
+font-size: 12px !important;
+padding: 10px 20px !important;
+font-weight: 700 !important;
+background: rgba(255,255,255,.7) !important;
+backdrop-filter: blur(12px) !important;
+-webkit-backdrop-filter: blur(12px) !important;
+border: 1px solid rgba(0,0,0,.08) !important;
+color: rgba(0,0,0,.65) !important;
+box-shadow: 0 2px 12px rgba(0,0,0,.06);
+}
+.hnp:active { background: rgba(255,255,255,.9) !important; color:var(–black) !important; }
+
+/* Position stats slightly higher */
+.home-stat-tl { top: 18% !important; }
+.home-stat-tr { top: 18% !important; }
+
+/* Subtle radial center bg */
+#page-home::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(ellipse 70% 60% at 50% 50%,
+rgba(0,113,227,.06) 0%,
+transparent 70%);
+z-index: 1;
+pointer-events: none;
+}
+.home-center { z-index: 2 !important; }
+.home-bottom, .home-stat, .home-nav-pills, .home-watermark { z-index: 2 !important; }
+
+/* ══════════════════════════════════
+HOME — IMPRIMANTE 3D
+══════════════════════════════════ */
+#page-home {
+background: #f2f2f7;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-end;
+}
+
+/* Canvas occupe tout */
+#p3d {
+position: absolute;
+inset: 0; width: 100%; height: 100%;
+pointer-events: none;
+}
+
+/* Phrase — centrée verticalement dans le tiers bas */
+.h-phrase {
+position: relative; z-index: 5;
+display: flex; flex-direction: column;
+align-items: center; gap: 0;
+text-align: center;
+margin-bottom: 28px;
+}
+
+.hp-line {
+display: block;
+font-size: clamp(32px, 8vw, 52px);
+font-weight: 900;
+letter-spacing: -.04em;
+line-height: 1.05;
+color: var(–black);
+opacity: 0;
+transform: translateY(18px);
+transition: opacity .7s cubic-bezier(.22,1,.36,1),
+transform .7s cubic-bezier(.22,1,.36,1);
+}
+.hp-line.show { opacity:1; transform:translateY(0); }
+.hp-accent { color: var(–blue-dark); }
+#hp2 { transition-delay: .14s; }
+
+/* Bouton seul, sobre, premium */
+.h-contact {
+position: relative; z-index: 5;
+display: inline-flex; align-items: center; gap: 10px;
+background: var(–black);
+color: #fff;
+font-size: 16px; font-weight: 700;
+padding: 16px 36px;
+border-radius: 99px;
+border: none; cursor: pointer;
+font-family: inherit; letter-spacing: -.02em;
+margin-bottom: 100px;
+box-shadow: 0 8px 32px rgba(0,0,0,.18);
+opacity: 0; transform: translateY(14px);
+transition: opacity .7s .28s cubic-bezier(.22,1,.36,1),
+transform .7s .28s cubic-bezier(.22,1,.36,1),
+box-shadow .2s ease;
+}
+.h-contact.show { opacity:1; transform:translateY(0); }
+.h-contact:active { transform:scale(.95); }
+.h-contact:hover { box-shadow: 0 12px 44px rgba(0,0,0,.26); }
+
+.h-contact-arrow {
+font-size: 18px;
+display: inline-block;
+transition: transform .2s ease;
+}
+.h-contact:hover .h-contact-arrow { transform: translate(3px,-3px); }
+
+/* hide everything else from old home */
+.home-watermark,.home-center,.home-bottom,.home-stat,
+.home-nav-pills,.hc-ring,.hc-obj-wrap,.hc-label,
+.h-phrase-old,.scene,.home-scroll { display:none !important; }
+
+/* ══ PAGE ENTRANCE — keyframes CSS, pas de toggle opacity ══ */
+@keyframes peUp    { from { opacity:0; transform:translateY(22px) } to { opacity:1; transform:none } }
+@keyframes peLeft  { from { opacity:0; transform:translateX(-22px)} to { opacity:1; transform:none } }
+@keyframes peRight { from { opacity:0; transform:translateX(22px) } to { opacity:1; transform:none } }
+@keyframes peScale { from { opacity:0; transform:scale(.9)        } to { opacity:1; transform:none } }
+
+.pe { opacity:1; }  /* visible par défaut */
+
+/* quand la page est inactive, on met les éléments en attente */
+.page:not(.active) .pe { opacity:0; }
+
+/* au moment où la page devient active, on lance les keyframes */
+.page.active .pe            { animation: peUp    .5s cubic-bezier(.22,1,.36,1) both; }
+.page.active .pe.from-left  { animation: peLeft  .5s cubic-bezier(.22,1,.36,1) both; }
+.page.active .pe.from-right { animation: peRight .5s cubic-bezier(.22,1,.36,1) both; }
+.page.active .pe.from-scale { animation: peScale .5s cubic-bezier(.22,1,.36,1) both; }
+
+/* délais en cascade via data-delay → inline style mis par JS */
+
 </style>
 </head>
 <body>
@@ -472,123 +1286,80 @@ transition:transform .18s ease, box-shadow .18s ease;
 <!-- ══ HOME ══ -->
 
 <div class="page active" id="page-home">
-  <div class="hero-wrap">
-    <div class="hero-card" id="heroCard">
-      <div class="htag">Modélisation 3D · Sur mesure</div>
-      <h1 class="htitle">Je crée ce<br>qui n'existe<br>pas.</h1>
-      <p class="hsub">Des objets sur mesure,<br>pensés et fabriqués pour toi.</p>
-      <button class="hbtn" onclick="navTo('contact')">Me contacter &nbsp;↗</button>
+
+  <!-- Canvas imprimante 3D -->
+
+<canvas id="p3d"></canvas>
+
+  <!-- Phrase unique -->
+
+  <div class="h-phrase" id="hPhrase">
+    <span class="hp-line" id="hp1">Je crée ce qui</span>
+    <span class="hp-line hp-accent" id="hp2">n'existe pas.</span>
+  </div>
+
+  <!-- Bouton seul -->
+
+  <button class="h-contact" id="hContact" onclick="navTo('contact')">
+    Me contacter
+    <span class="h-contact-arrow">↗</span>
+  </button>
+
+</div>
+<!-- ══ HISTOIRE ══ -->
+<div class="page" id="page-histoire">
+  <div class="hist-inner">
+    <div class="ht-top pe from-left" data-delay="0">
+      <span class="ht-tag">Mon histoire</span>
+      <div class="ht-h2">De la frustration<br>à la passion.</div>
+      <div class="ht-sub">La naissance de melc.</div>
     </div>
-    <div class="hero-phone-wrap" id="heroPhone">
-      <div class="iph">
-        <div class="iph-notch"></div>
-        <div class="iph-screen">
-          <div class="sc-bg"></div><div class="sc-grid"></div><div class="sc-glow"></div>
-          <div class="sc-obj" id="scObj">⬡</div>
-          <div class="sc-labels">
-            <span class="sc-lbl" id="ol1">Aluminium</span>
-            <span class="sc-lbl" id="ol2">PLA Pro</span>
-            <span class="sc-lbl" id="ol3">Sur mesure</span>
-          </div>
-          <div class="sc-status">
-            <span class="sc-time" id="clk">09:41</span>
-            <div class="sc-bars"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span></div>
-          </div>
-          <div class="sc-info">
-            <div class="sc-badge"><div class="bdot"></div>En conception</div>
-            <div class="sc-title" id="scTitle">Support casque sur mesure</div>
-            <div class="sc-sub">Rendu 3D · melc. Studio</div>
-          </div>
-        </div>
+    <div class="iph-big pe from-scale" data-delay="40">
+      <div class="notch"></div>
+      <div class="scr" id="histScr">
+        <div class="idots" id="idots"></div>
+        <div class="sld on"><div class="sbg">😤</div><div class="sov"></div><div class="sc2"><div class="sl3">Le début</div><div class="st3">Une vraie frustration.</div><div class="ss3">Certains objets dont j'avais besoin n'existaient tout simplement pas.</div></div></div>
+        <div class="sld"><div class="sbg">🔍</div><div class="sov"></div><div class="sc2"><div class="sl3">La recherche</div><div class="st3">Introuvable nulle part.</div><div class="ss3">Amazon, AliExpress, artisans locaux. Rien ne correspondait.</div></div></div>
+        <div class="sld"><div class="sbg">💡</div><div class="sov"></div><div class="sc2"><div class="sl3">La révélation</div><div class="st3">Et si je le faisais moi-même ?</div><div class="ss3">Premier logiciel téléchargé un soir. Je n'allais plus dormir pareil.</div></div></div>
+        <div class="sld"><div class="sbg">🌙</div><div class="sov"></div><div class="sc2"><div class="sl3">Les nuits blanches</div><div class="st3">Apprendre. Rater. Recommencer.</div><div class="ss3">Des semaines à me battre avec les logiciels. Chaque erreur m'enseignait.</div></div></div>
+        <div class="sld"><div class="sbg">🖨️</div><div class="sov"></div><div class="sc2"><div class="sl3">Le premier objet</div><div class="st3">Il est sorti de l'imprimante.</div><div class="ss3">Imparfait. Bancal. Mais c'était le mien. Et il fonctionnait.</div></div></div>
+        <div class="sld"><div class="sbg">🔥</div><div class="sov"></div><div class="sc2"><div class="sl3">L'obsession</div><div class="st3">Je ne pouvais plus m'arrêter.</div><div class="ss3">La modélisation est devenue mon langage.</div></div></div>
+        <div class="sld"><div class="sbg">✨</div><div class="sov"></div><div class="sc2"><div class="sl3">Aujourd'hui</div><div class="st3">melc. c'est ta solution.</div><div class="ss3">Je crée pour toi ce qui n'existe pas encore.</div></div></div>
       </div>
     </div>
-  </div>
-  <div class="home-scroll">
-    <div class="phone-spacer"></div>
-
-```
-<!-- STATS avec compteurs animés + barres -->
-<div class="stats-row rv up" id="statsRow">
-  <div class="stat-card">
-    <div class="stat-n" data-target="47" data-suffix="+">0</div>
-    <div class="stat-l">Créations</div>
-    <div class="stat-bar"><div class="stat-bar-fill" style="width:94%;background:linear-gradient(90deg,#5AC8FA,#0A84FF)"></div></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-n" data-target="100" data-suffix="%">0</div>
-    <div class="stat-l">Sur mesure</div>
-    <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;background:linear-gradient(90deg,#34C759,#30D158)"></div></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-n">5★</div>
-    <div class="stat-l">Avis clients</div>
-    <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;background:linear-gradient(90deg,#FFD60A,#FF9F0A)"></div></div>
-  </div>
-</div>
-
-<!-- QUICK NAV -->
-<div class="qlinks rv up d1" id="qlinks">
-  <button class="ql" onclick="navTo('creations')">
-    <div class="ql-icon-wrap">✦</div>
-    <div><div class="ql-t">Mes créations</div><div class="ql-s">47 objets uniques →</div></div>
-  </button>
-  <button class="ql" onclick="navTo('histoire')">
-    <div class="ql-icon-wrap">◐</div>
-    <div><div class="ql-t">Mon histoire</div><div class="ql-s">Qui je suis →</div></div>
-  </button>
-</div>
-
-<!-- FEATURE CARD -->
-<div class="home-feature rv up d2" id="homeFeat">
-  <div class="feat-card" onclick="navTo('creations')">
-    <div class="feat-thumb">🎧</div>
-    <div class="feat-text">
-      <div class="feat-eyebrow">Dernière création</div>
-      <div class="feat-title">Support casque magnétique</div>
-      <div class="feat-sub">Fixation murale invisible · Aluminium brossé</div>
+    <div class="ht-cta pe" data-delay="80"><button class="btng" onclick="navTo('contact')">Parler de mon projet &nbsp;↗</button></div>
+    <div class="ht-stats pe" data-delay="110">
+      <div class="ht-stat"><div class="ht-stat-n">47+</div><div class="ht-stat-l">Objets créés</div></div>
+      <div class="ht-stat"><div class="ht-stat-n">2 ans</div><div class="ht-stat-l">D'expérience</div></div>
+      <div class="ht-stat"><div class="ht-stat-n">5★</div><div class="ht-stat-l">Satisfaction</div></div>
     </div>
-    <div class="feat-arrow-btn">›</div>
-  </div>
-</div>
-
-<!-- SERVICES CARDS -->
-<div class="services rv up d2">
-  <div class="svc-card" onclick="navTo('contact')">
-    <div class="svc-icon">🎯</div>
-    <div class="svc-title">Sur mesure</div>
-    <div class="svc-desc">Chaque objet conçu spécifiquement pour ton besoin.</div>
-  </div>
-  <div class="svc-card" onclick="navTo('contact')">
-    <div class="svc-icon">⚡</div>
-    <div class="svc-title">Livraison rapide</div>
-    <div class="svc-desc">De l'idée à l'objet en main en quelques jours.</div>
-  </div>
-</div>
-
-<!-- MATÉRIAUX -->
-<div class="mat-strip rv up d3" id="matStrip">
-  <div class="mat-title">Matériaux disponibles</div>
-  <div class="mat-row">
-    <div class="mat-pill">PLA Pro</div><div class="mat-pill">PETG</div>
-    <div class="mat-pill">TPU Flex</div><div class="mat-pill">PA12 Nylon</div>
-    <div class="mat-pill">Résine</div><div class="mat-pill">Aluminium</div>
-    <div class="mat-pill">Bois composite</div>
-  </div>
-</div>
-
-<!-- MINI AVIS -->
-<div class="mini-avis rv up d3">
-  <div class="mini-avis-title">Ce qu'ils disent</div>
-  <div class="mini-avis-card">
-    <div class="mini-stars">★★★★★</div>
-    <div class="mini-txt">"Exactement ce que j'avais imaginé. Bluffant."</div>
-    <div class="mini-name">Thomas R.</div>
-  </div>
-</div>
-
-<div style="height:130px"></div>
-```
-
+    <div class="ht-pull pe from-left" data-delay="140">
+      <div class="ht-pull-bar"></div>
+      <div><div class="ht-pull-text">Je n'ai pas appris la modélisation 3D pour en faire un métier. Je l'ai apprise parce que j'en avais besoin. Le reste a suivi naturellement.</div><div class="ht-pull-name">— Clément, fondateur de melc.</div></div>
+    </div>
+    <div class="ht-timeline pe" data-delay="170">
+      <span class="ht-slabel rv up">Le parcours</span>
+      <div class="tl-card rv right"><div class="tl-card-header"><div class="tl-card-num">1</div><div class="tl-card-icon">😤</div><div><div class="tl-card-label">Chapitre 1</div><div class="tl-card-title">La frustration fondatrice</div></div></div><div class="tl-card-body">J'avais besoin d'un objet précis. Introuvable dans le commerce. Des heures à chercher. Rien ne correspondait.<br><br>C'est cette impuissance qui a tout déclenché.</div><div class="tl-card-quote">"Pourquoi personne ne fabrique exactement ce dont j'ai besoin ?"</div></div>
+      <div class="tl-card rv left d1"><div class="tl-card-header"><div class="tl-card-num">2</div><div class="tl-card-icon">🌙</div><div><div class="tl-card-label">Chapitre 2</div><div class="tl-card-title">Les nuits à apprendre</div></div></div><div class="tl-card-body">Premier tutoriel regardé sans rien comprendre. Mais quelque chose me fascinait : modéliser n'importe quoi.<br><br>J'ai recommencé le lendemain. Et le surlendemain. Pendant des semaines.</div><div class="tl-card-quote">"Encore une heure. Je comprends presque."</div></div>
+      <div class="tl-card rv right d1"><div class="tl-card-header"><div class="tl-card-num">3</div><div class="tl-card-icon">💥</div><div><div class="tl-card-label">Chapitre 3</div><div class="tl-card-title">Les ratés qui m'ont formé</div></div></div><div class="tl-card-body">Premiers objets moches. Certains ne tenaient pas. Des bobines gaspillées.<br><br>Mais chaque erreur m'apprenait ce que personne n'aurait pu m'enseigner.</div><div class="tl-card-quote">"Encore raté. Mais cette fois je sais pourquoi."</div></div>
+      <div class="tl-card rv left d1"><div class="tl-card-header"><div class="tl-card-num">4</div><div class="tl-card-icon">⚡</div><div><div class="tl-card-label">Chapitre 4</div><div class="tl-card-title">Le déclic</div></div></div><div class="tl-card-body">Un objet sorti de l'imprimante. Parfait. Exactement ce que j'avais voulu.<br><br>J'avais prouvé que c'était possible. Que je pouvais créer ce qui n'existait pas.</div><div class="tl-card-quote">"C'est exactement ça."</div></div>
+      <div class="tl-card rv right d1"><div class="tl-card-header"><div class="tl-card-num">5</div><div class="tl-card-icon">🚀</div><div><div class="tl-card-label">Chapitre 5</div><div class="tl-card-title">De la passion au service</div></div></div><div class="tl-card-body">Des amis m'ont demandé de créer pour eux. Puis des inconnus.<br><br>Ma frustration était universelle. melc. est né pour tous ceux qui cherchent un objet qui n'existe pas.</div><div class="tl-card-quote">"Ce que tu as vécu, je ne veux pas que tu le revives."</div></div>
+    </div>
+    <div class="ht-values pe" data-delay="200">
+      <span class="ht-slabel">Ce que je mets dans chaque objet</span>
+      <div class="ht-val-grid">
+        <div class="ht-val-card rv pop d1"><div class="ht-val-icon">🎯</div><div class="ht-val-name">Précision</div><div class="ht-val-desc">Chaque millimètre vient d'une décision consciente.</div></div>
+        <div class="ht-val-card rv pop d2"><div class="ht-val-icon">🔥</div><div class="ht-val-name">Passion</div><div class="ht-val-desc">Je crée encore par amour du geste.</div></div>
+        <div class="ht-val-card rv pop d3"><div class="ht-val-icon">👂</div><div class="ht-val-name">Écoute</div><div class="ht-val-desc">Je comprends ce que tu veux, même sans les mots exacts.</div></div>
+        <div class="ht-val-card rv pop d4"><div class="ht-val-icon">🔄</div><div class="ht-val-name">Persévérance</div><div class="ht-val-desc">Je ne lâche jamais avant que ce soit parfait.</div></div>
+      </div>
+    </div>
+    <div class="ht-quote pe from-scale" data-delay="200"><div class="ht-quote-text">"Si ça n'existe pas,<br>je le crée."</div><div class="ht-quote-sub">— Clément, fondateur de melc.</div></div>
+    <div class="ht-final pe" data-delay="200">
+      <div class="ht-final-title">Tu as un objet en tête ?</div>
+      <div class="ht-final-sub">Dis-moi ce que tu imagines.<br>Je m'occupe du reste.</div>
+      <button class="ht-final-btn" onclick="navTo('contact')">Commencer mon projet &nbsp;↗</button>
+    </div>
   </div>
 </div>
 
@@ -596,7 +1367,7 @@ transition:transform .18s ease, box-shadow .18s ease;
 
 <div class="page" id="page-creations">
   <div style="padding:64px 22px 0">
-    <div class="ptb rv up" style="padding:0;margin-bottom:24px">
+    <div class="ptb" style="padding:0;margin-bottom:24px">
       <span class="ptag">Créations</span>
       <div class="ph2">Objets imaginés,<br>objets réalisés.</div>
       <p class="psub">Chaque pièce unique, conçue de zéro.</p>
@@ -605,22 +1376,22 @@ transition:transform .18s ease, box-shadow .18s ease;
 
   <!-- ROW 1 : Maison -->
 
-  <div class="cat-label rv up"><span class="cat-icon">🏠</span> Aménagement maison</div>
+  <div class="cat-label"><span class="cat-icon">🏠</span> Aménagement maison</div>
   <div class="rw"><div class="sr aL row-a" id="r1"></div></div>
 
   <!-- ROW 2 : Pro -->
 
-  <div class="cat-label rv up d1"><span class="cat-icon">💼</span> Solutions pro</div>
+  <div class="cat-label d1"><span class="cat-icon">💼</span> Solutions pro</div>
   <div class="rw"><div class="sr aR row-b" id="r2"></div></div>
 
   <!-- ROW 3 : Moto -->
 
-  <div class="cat-label rv up d2"><span class="cat-icon">🏍️</span> Pièces moto</div>
+  <div class="cat-label d2"><span class="cat-icon">🏍️</span> Pièces moto</div>
   <div class="rw"><div class="sr aLs row-c" id="r3"></div></div>
 
   <!-- COMMENT COMMANDER -->
 
-  <div class="how-section">
+  <div class="how-section pe" data-delay="60">
     <div class="how-header">
       <span class="ptag">Processus</span>
       <div class="ph2" style="font-size:26px">Comment<br>commander ?</div>
@@ -681,71 +1452,13 @@ transition:transform .18s ease, box-shadow .18s ease;
 <div class="page" id="page-produit">
   <div class="prod-wrap">
     <button class="prod-back" onclick="navTo('creations')">← Retour</button>
-    <div class="prod-visual rv pop d1" id="prodVisual">🎧</div>
-    <div class="prod-cat rv up d1" id="prodCat">Maison</div>
-    <h2 class="prod-title rv up d2" id="prodTitle">Support casque</h2>
-    <p class="prod-desc rv up d3" id="prodDesc">Description du produit.</p>
-    <div class="prod-tags rv up d3" id="prodTags"></div>
-    <div class="prod-specs rv up d4" id="prodSpecs"></div>
-    <button class="prod-cta rv up d4" onclick="navTo('contact')">Commander sur mesure &nbsp;↗</button>
-  </div>
-</div>
-
-<!-- ══ HISTOIRE ══ -->
-
-<div class="page" id="page-histoire">
-  <div class="hist-inner">
-    <div class="ht-top rv up">
-      <span class="ht-tag">Mon histoire</span>
-      <div class="ht-h2">De la frustration<br>à la passion.</div>
-      <div class="ht-sub">La naissance de melc.</div>
-    </div>
-    <div class="iph-big rv pop d1">
-      <div class="notch"></div>
-      <div class="scr" id="histScr">
-        <div class="idots" id="idots"></div>
-        <div class="sld on"><div class="sbg">😤</div><div class="sov"></div><div class="sc2"><div class="sl3">Le début</div><div class="st3">Une vraie frustration.</div><div class="ss3">Certains objets dont j'avais besoin n'existaient tout simplement pas.</div></div></div>
-        <div class="sld"><div class="sbg">🔍</div><div class="sov"></div><div class="sc2"><div class="sl3">La recherche</div><div class="st3">Introuvable nulle part.</div><div class="ss3">Amazon, AliExpress, artisans locaux. Rien ne correspondait.</div></div></div>
-        <div class="sld"><div class="sbg">💡</div><div class="sov"></div><div class="sc2"><div class="sl3">La révélation</div><div class="st3">Et si je le faisais moi-même ?</div><div class="ss3">Premier logiciel téléchargé un soir. Je n'allais plus dormir pareil.</div></div></div>
-        <div class="sld"><div class="sbg">🌙</div><div class="sov"></div><div class="sc2"><div class="sl3">Les nuits blanches</div><div class="st3">Apprendre. Rater. Recommencer.</div><div class="ss3">Des semaines à me battre avec les logiciels. Chaque erreur m'enseignait.</div></div></div>
-        <div class="sld"><div class="sbg">🖨️</div><div class="sov"></div><div class="sc2"><div class="sl3">Le premier objet</div><div class="st3">Il est sorti de l'imprimante.</div><div class="ss3">Imparfait. Bancal. Mais c'était le mien. Et il fonctionnait.</div></div></div>
-        <div class="sld"><div class="sbg">🔥</div><div class="sov"></div><div class="sc2"><div class="sl3">L'obsession</div><div class="st3">Je ne pouvais plus m'arrêter.</div><div class="ss3">La modélisation est devenue mon langage.</div></div></div>
-        <div class="sld"><div class="sbg">✨</div><div class="sov"></div><div class="sc2"><div class="sl3">Aujourd'hui</div><div class="st3">melc. c'est ta solution.</div><div class="ss3">Je crée pour toi ce qui n'existe pas encore.</div></div></div>
-      </div>
-    </div>
-    <div class="ht-cta rv up d2"><button class="btng" onclick="navTo('contact')">Parler de mon projet &nbsp;↗</button></div>
-    <div class="ht-stats rv up d1">
-      <div class="ht-stat"><div class="ht-stat-n">47+</div><div class="ht-stat-l">Objets créés</div></div>
-      <div class="ht-stat"><div class="ht-stat-n">2 ans</div><div class="ht-stat-l">D'expérience</div></div>
-      <div class="ht-stat"><div class="ht-stat-n">5★</div><div class="ht-stat-l">Satisfaction</div></div>
-    </div>
-    <div class="ht-pull rv left">
-      <div class="ht-pull-bar"></div>
-      <div><div class="ht-pull-text">Je n'ai pas appris la modélisation 3D pour en faire un métier. Je l'ai apprise parce que j'en avais besoin. Le reste a suivi naturellement.</div><div class="ht-pull-name">— Clément, fondateur de melc.</div></div>
-    </div>
-    <div class="ht-timeline">
-      <span class="ht-slabel rv up">Le parcours</span>
-      <div class="tl-card rv right"><div class="tl-card-header"><div class="tl-card-num">1</div><div class="tl-card-icon">😤</div><div><div class="tl-card-label">Chapitre 1</div><div class="tl-card-title">La frustration fondatrice</div></div></div><div class="tl-card-body">J'avais besoin d'un objet précis. Introuvable dans le commerce. Des heures à chercher. Rien ne correspondait.<br><br>C'est cette impuissance qui a tout déclenché.</div><div class="tl-card-quote">"Pourquoi personne ne fabrique exactement ce dont j'ai besoin ?"</div></div>
-      <div class="tl-card rv left d1"><div class="tl-card-header"><div class="tl-card-num">2</div><div class="tl-card-icon">🌙</div><div><div class="tl-card-label">Chapitre 2</div><div class="tl-card-title">Les nuits à apprendre</div></div></div><div class="tl-card-body">Premier tutoriel regardé sans rien comprendre. Mais quelque chose me fascinait : modéliser n'importe quoi.<br><br>J'ai recommencé le lendemain. Et le surlendemain. Pendant des semaines.</div><div class="tl-card-quote">"Encore une heure. Je comprends presque."</div></div>
-      <div class="tl-card rv right d1"><div class="tl-card-header"><div class="tl-card-num">3</div><div class="tl-card-icon">💥</div><div><div class="tl-card-label">Chapitre 3</div><div class="tl-card-title">Les ratés qui m'ont formé</div></div></div><div class="tl-card-body">Premiers objets moches. Certains ne tenaient pas. Des bobines gaspillées.<br><br>Mais chaque erreur m'apprenait ce que personne n'aurait pu m'enseigner.</div><div class="tl-card-quote">"Encore raté. Mais cette fois je sais pourquoi."</div></div>
-      <div class="tl-card rv left d1"><div class="tl-card-header"><div class="tl-card-num">4</div><div class="tl-card-icon">⚡</div><div><div class="tl-card-label">Chapitre 4</div><div class="tl-card-title">Le déclic</div></div></div><div class="tl-card-body">Un objet sorti de l'imprimante. Parfait. Exactement ce que j'avais voulu.<br><br>J'avais prouvé que c'était possible. Que je pouvais créer ce qui n'existait pas.</div><div class="tl-card-quote">"C'est exactement ça."</div></div>
-      <div class="tl-card rv right d1"><div class="tl-card-header"><div class="tl-card-num">5</div><div class="tl-card-icon">🚀</div><div><div class="tl-card-label">Chapitre 5</div><div class="tl-card-title">De la passion au service</div></div></div><div class="tl-card-body">Des amis m'ont demandé de créer pour eux. Puis des inconnus.<br><br>Ma frustration était universelle. melc. est né pour tous ceux qui cherchent un objet qui n'existe pas.</div><div class="tl-card-quote">"Ce que tu as vécu, je ne veux pas que tu le revives."</div></div>
-    </div>
-    <div class="ht-values rv up">
-      <span class="ht-slabel">Ce que je mets dans chaque objet</span>
-      <div class="ht-val-grid">
-        <div class="ht-val-card rv pop d1"><div class="ht-val-icon">🎯</div><div class="ht-val-name">Précision</div><div class="ht-val-desc">Chaque millimètre vient d'une décision consciente.</div></div>
-        <div class="ht-val-card rv pop d2"><div class="ht-val-icon">🔥</div><div class="ht-val-name">Passion</div><div class="ht-val-desc">Je crée encore par amour du geste.</div></div>
-        <div class="ht-val-card rv pop d3"><div class="ht-val-icon">👂</div><div class="ht-val-name">Écoute</div><div class="ht-val-desc">Je comprends ce que tu veux, même sans les mots exacts.</div></div>
-        <div class="ht-val-card rv pop d4"><div class="ht-val-icon">🔄</div><div class="ht-val-name">Persévérance</div><div class="ht-val-desc">Je ne lâche jamais avant que ce soit parfait.</div></div>
-      </div>
-    </div>
-    <div class="ht-quote rv pop"><div class="ht-quote-text">"Si ça n'existe pas,<br>je le crée."</div><div class="ht-quote-sub">— Clément, fondateur de melc.</div></div>
-    <div class="ht-final rv up">
-      <div class="ht-final-title">Tu as un objet en tête ?</div>
-      <div class="ht-final-sub">Dis-moi ce que tu imagines.<br>Je m'occupe du reste.</div>
-      <button class="ht-final-btn" onclick="navTo('contact')">Commencer mon projet &nbsp;↗</button>
-    </div>
+    <div class="prod-visual pe from-scale" data-delay="0" id="prodVisual">🎧</div>
+    <div class="prod-cat pe" data-delay="40" id="prodCat">Maison</div>
+    <h2 class="prod-title pe from-left" data-delay="60" id="prodTitle">Support casque</h2>
+    <p class="prod-desc pe" data-delay="90" id="prodDesc">Description du produit.</p>
+    <div class="prod-tags pe" data-delay="120" id="prodTags"></div>
+    <div class="prod-specs pe" data-delay="150" id="prodSpecs"></div>
+    <button class="prod-cta pe" data-delay="180" onclick="navTo('contact')">Commander sur mesure &nbsp;↗</button>
   </div>
 </div>
 
@@ -753,15 +1466,15 @@ transition:transform .18s ease, box-shadow .18s ease;
 
 <div class="page" id="page-contact">
   <div class="cwrap">
-    <span class="ctag rv up">Contact</span>
-    <div class="cth2 rv up d1">Parlons de<br>ton projet.</div>
-    <p class="ctsub rv up d2">Décris-moi ce que tu imagines. Je te réponds sous 24h.</p>
-    <div class="reassure rv up d2">
+    <span class="ctag pe from-left" data-delay="0">Contact</span>
+    <div class="cth2 pe" data-delay="60">Parlons de<br>ton projet.</div>
+    <p class="ctsub pe" data-delay="120">Décris-moi ce que tu imagines. Je te réponds sous 24h.</p>
+    <div class="reassure pe" data-delay="180">
       <div class="re-card"><div class="re-icon">⚡</div><div class="re-label">Réponse rapide</div><div class="re-sub">Sous 24h</div></div>
       <div class="re-card"><div class="re-icon">🔒</div><div class="re-label">Confidentiel</div><div class="re-sub">Ton idée est safe</div></div>
       <div class="re-card"><div class="re-icon">💬</div><div class="re-label">Sans engagement</div><div class="re-sub">Devis gratuit</div></div>
     </div>
-    <div class="ccard rv up d3">
+    <div class="ccard pe from-scale" data-delay="260">
       <div class="form">
         <input class="inp" type="text" placeholder="Ton prénom">
         <input class="inp" type="email" placeholder="Ton e-mail">
@@ -809,11 +1522,11 @@ transition:transform .18s ease, box-shadow .18s ease;
     <button class="tab on" data-p="home">
       <svg width="22" height="20" viewBox="0 0 22 20" fill="none" class="tsvg"><path d="M1 8.5L11 1L21 8.5V19H15V13H7V19H1V8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
     </button>
-    <button class="tab" data-p="creations">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="tsvg"><rect x="1" y="1" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11.5" y="1" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="11.5" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11.5" y="11.5" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
-    </button>
     <button class="tab" data-p="histoire">
       <svg width="22" height="20" viewBox="0 0 22 20" fill="none" class="tsvg"><path d="M11 4C11 4 8 2 3 2V17C8 17 11 19 11 19C11 19 14 17 19 17V2C14 2 11 4 11 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="11" y1="4" x2="11" y2="19" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <button class="tab" data-p="creations">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="tsvg"><rect x="1" y="1" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11.5" y="1" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="11.5" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11.5" y="11.5" width="7.5" height="7.5" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
     </button>
     <button class="tab" data-p="contact">
       <svg width="22" height="18" viewBox="0 0 22 18" fill="none" class="tsvg"><rect x="1" y="1" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 4L11 11L21 4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
@@ -826,7 +1539,7 @@ transition:transform .18s ease, box-shadow .18s ease;
 
 /* ══ ROUTER ══ */
 var cur = 'home';
-var pageOrder = ['home','creations','produit','histoire','contact'];
+var pageOrder = ['home','histoire','creations','produit','contact'];
 
 function navTo(id) {
   if (id === cur) return;
@@ -894,13 +1607,343 @@ function tick() {
 tick();
 setInterval(tick, 10000);
 
-/* ══ HERO ENTRANCE ══ */
+/* ══ CANVAS 3D PRINT LINES ══ */
 (function() {
-  var hc = document.getElementById('heroCard');
-  var hp = document.getElementById('heroPhone');
-  setTimeout(function() { hc.classList.add('show'); }, 80);
-  setTimeout(function() { hp.classList.add('show'); }, 220);
+  var canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, lines = [], dots = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth  || 400;
+    H = canvas.height = canvas.offsetHeight || 700;
+  }
+  resize();
+
+  for (var i = 0; i < 20; i++) {
+    lines.push({
+      y:Math.random()*H, speed:0.15+Math.random()*0.28,
+      width:60+Math.random()*180, x:Math.random()*W,
+      opacity:0.07+Math.random()*0.16, hue:Math.random()>.6?200:220
+    });
+  }
+  for (var j = 0; j < 32; j++) {
+    dots.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:0.7+Math.random()*1.8, speed:0.08+Math.random()*0.2,
+      opacity:0.1+Math.random()*0.2
+    });
+  }
+
+  var gridOff = 0;
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    gridOff = (gridOff+0.28)%32;
+    ctx.strokeStyle='rgba(90,180,255,0.04)';
+    ctx.lineWidth=0.5;
+    for (var gy=-32+gridOff; gy<H; gy+=32) { ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke(); }
+    for (var gx=0; gx<W; gx+=32) { ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke(); }
+    lines.forEach(function(l) {
+      l.y-=l.speed;
+      if (l.y<-2){l.y=H+2;l.x=Math.random()*W;l.width=60+Math.random()*180;}
+      var g=ctx.createLinearGradient(l.x,0,l.x+l.width,0);
+      g.addColorStop(0,'transparent');
+      g.addColorStop(0.3,'rgba('+l.hue+',200,255,'+l.opacity+')');
+      g.addColorStop(0.7,'rgba('+l.hue+',200,255,'+l.opacity+')');
+      g.addColorStop(1,'transparent');
+      ctx.strokeStyle=g; ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.moveTo(l.x,l.y);ctx.lineTo(l.x+l.width,l.y);ctx.stroke();
+    });
+    dots.forEach(function(d) {
+      d.y-=d.speed;
+      if (d.y<-4){d.y=H+4;d.x=Math.random()*W;}
+      ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,100,220,'+d.opacity+')';ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
+
+/* ══ HOME ENTRANCE ══ */
+(function() {
+  setTimeout(function() {
+    document.getElementById('hp1').classList.add('show');
+    document.getElementById('hp2').classList.add('show');
+    document.getElementById('hContact').classList.add('show');
+  }, 200);
+})();
+
+/* ══ CANVAS IMPRIMANTE 3D ══
+   - Plateau gris qui tourne en perspective isométrique
+   - Buse qui se déplace en XY et extrude du filament
+   - Objet qui monte couche par couche
+   - Vraie sensation d'impression 3D
+══════════════════════════════ */
+(function() {
+  var C = document.getElementById('p3d');
+  if (!C) return;
+  var X = C.getContext('2d');
+  var W, H, cx, cy;
+
+  function resize() {
+    W = C.width  = C.offsetWidth  || window.innerWidth;
+    H = C.height = C.offsetHeight || window.innerHeight;
+    cx = W / 2; cy = H * 0.32;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* ── Paramètres plateau isométrique ── */
+  var GRID   = 14;     /* cellules */
+  var CELL   = 18;     /* px par cellule */
+  var ISO_X  = 0.866;  /* cos30 */
+  var ISO_Y  = 0.5;    /* sin30 */
+
+  /* Projection iso */
+  function iso(gx, gy, gz) {
+    var x = (gx - gy) * CELL * ISO_X;
+    var y = (gx + gy) * CELL * ISO_Y - gz * 10;
+    return { x: cx + x, y: cy + y };
+  }
+
+  /* ── État imprimante ── */
+  var t = 0;
+  var printDone = false;
+
+  /* Chemin d'impression (spirale carrée) */
+  var path = [];
+  (function buildPath() {
+    var cx2 = GRID/2, cy2 = GRID/2;
+    var steps = [
+      [0,0],[GRID,0],[GRID,GRID],[0,GRID],[0,1],
+      [1,1],[GRID-1,1],[GRID-1,GRID-1],[1,GRID-1],[1,2],
+      [2,2],[GRID-2,2],[GRID-2,GRID-2],[2,GRID-2],[2,3],
+      [3,3],[GRID-3,3],[GRID-3,GRID-3],[3,GRID-3],[3,4],
+      [4,4],[GRID-4,4],[GRID-4,GRID-4],[4,GRID-4],[4,5],
+      [5,5],[GRID-5,5],[GRID-5,GRID-5],[5,GRID-5],
+    ];
+    steps.forEach(function(s){ path.push({x:s[0],y:s[1]}); });
+  })();
+
+  var pathLen = path.length;
+  var trailPoints = [];   /* points déjà imprimés */
+  var LAYERS = 6;
+  var curLayer = 0;
+  var pathProgress = 0;   /* 0..pathLen continu */
+  var PRINT_SPEED = 0.06; /* points par frame */
+  var layerDone = false;
+
+  /* ── Buse ── */
+  var nozzleX = path[0].x;
+  var nozzleY = path[0].y;
+  var nozzleZ = 0;
+  /* vibration légère */
+  var vibX = 0, vibY = 0;
+
+  /* ── Rendu ── */
+  function drawGrid(z) {
+    /* plateau */
+    for (var gx = 0; gx < GRID; gx++) {
+      for (var gy = 0; gy < GRID; gy++) {
+        var a = iso(gx,     gy,     z);
+        var b = iso(gx + 1, gy,     z);
+        var c = iso(gx + 1, gy + 1, z);
+        var d = iso(gx,     gy + 1, z);
+        var chk = (gx + gy) % 2 === 0;
+        X.beginPath();
+        X.moveTo(a.x,a.y); X.lineTo(b.x,b.y);
+        X.lineTo(c.x,c.y); X.lineTo(d.x,d.y);
+        X.closePath();
+        X.fillStyle = z === 0
+          ? (chk ? 'rgba(0,0,0,0.045)' : 'rgba(0,0,0,0.025)')
+          : 'transparent';
+        X.fill();
+        X.strokeStyle = 'rgba(0,0,0,0.06)';
+        X.lineWidth = 0.4;
+        X.stroke();
+      }
+    }
+    /* bords du plateau */
+    var corners = [
+      iso(0,0,z), iso(GRID,0,z), iso(GRID,GRID,z), iso(0,GRID,z)
+    ];
+    X.beginPath();
+    X.moveTo(corners[0].x, corners[0].y);
+    corners.forEach(function(p){ X.lineTo(p.x, p.y); });
+    X.closePath();
+    X.strokeStyle = 'rgba(0,0,0,0.14)';
+    X.lineWidth = 1.2;
+    X.stroke();
+  }
+
+  function drawTrail() {
+    if (trailPoints.length < 2) return;
+    /* dessine le filament couche par couche */
+    for (var l = 0; l <= curLayer; l++) {
+      var pts = trailPoints.filter(function(p){ return p.layer === l; });
+      if (pts.length < 2) continue;
+      X.beginPath();
+      var p0 = iso(pts[0].x, pts[0].y, l);
+      X.moveTo(p0.x, p0.y);
+      for (var i = 1; i < pts.length; i++) {
+        var pi = iso(pts[i].x, pts[i].y, l);
+        X.lineTo(pi.x, pi.y);
+      }
+      /* couleur par couche */
+      var hue = 200 + l * 18;
+      var alpha = 0.55 + l * 0.06;
+      X.strokeStyle = 'hsla(' + hue + ',80%,52%,' + alpha + ')';
+      X.lineWidth = 3.5 - l * 0.2;
+      X.lineCap = 'round';
+      X.lineJoin = 'round';
+      X.stroke();
+    }
+  }
+
+  function drawNozzle() {
+    var nPos = iso(nozzleX + vibX, nozzleY + vibY, curLayer + 2.8);
+
+    /* tige verticale */
+    var nBase = iso(nozzleX + vibX, nozzleY + vibY, curLayer + 0.3);
+    X.beginPath();
+    X.moveTo(nPos.x, nPos.y - 14);
+    X.lineTo(nBase.x, nBase.y);
+    X.strokeStyle = 'rgba(40,40,40,.85)';
+    X.lineWidth = 4;
+    X.lineCap = 'round';
+    X.stroke();
+
+    /* corps buse */
+    X.beginPath();
+    X.moveTo(nPos.x - 5, nPos.y - 14);
+    X.lineTo(nPos.x + 5, nPos.y - 14);
+    X.lineTo(nBase.x + 2, nBase.y);
+    X.lineTo(nBase.x - 2, nBase.y);
+    X.closePath();
+    X.fillStyle = '#2a2a2a';
+    X.fill();
+
+    /* filament qui sort */
+    if (!layerDone) {
+      X.beginPath();
+      X.arc(nBase.x, nBase.y + 1, 2.2, 0, Math.PI * 2);
+      X.fillStyle = 'rgba(0,160,255,.9)';
+      X.fill();
+      /* halo chaud */
+      var grad = X.createRadialGradient(nBase.x,nBase.y,0,nBase.x,nBase.y,12);
+      grad.addColorStop(0,'rgba(0,180,255,.25)');
+      grad.addColorStop(1,'transparent');
+      X.beginPath();
+      X.arc(nBase.x,nBase.y,12,0,Math.PI*2);
+      X.fillStyle = grad;
+      X.fill();
+    }
+  }
+
+  function drawRails() {
+    /* 2 rails verticaux */
+    var railPositions = [{x:-1,y:-1},{x:GRID+1,y:-1},{x:-1,y:GRID+1},{x:GRID+1,y:GRID+1}];
+    railPositions.forEach(function(r) {
+      var bot = iso(r.x, r.y, 0);
+      var top = iso(r.x, r.y, LAYERS + 3);
+      X.beginPath();
+      X.moveTo(bot.x, bot.y);
+      X.lineTo(top.x, top.y);
+      X.strokeStyle = 'rgba(0,0,0,.1)';
+      X.lineWidth = 1;
+      X.stroke();
+    });
+    /* rail X de la buse */
+    var rx1 = iso(-1, nozzleY + vibY, curLayer + 2.8);
+    var rx2 = iso(GRID+1, nozzleY + vibY, curLayer + 2.8);
+    X.beginPath();
+    X.moveTo(rx1.x, rx1.y);
+    X.lineTo(rx2.x, rx2.y);
+    X.strokeStyle = 'rgba(0,0,0,.15)';
+    X.lineWidth = 1.5;
+    X.stroke();
+  }
+
+  /* ── Loop principale ── */
+  function update() {
+    /* avance sur le chemin */
+    if (!layerDone) {
+      pathProgress += PRINT_SPEED;
+      if (pathProgress >= pathLen) {
+        pathProgress = pathLen - 0.001;
+        layerDone = true;
+        setTimeout(function() {
+          if (curLayer < LAYERS - 1) {
+            curLayer++;
+            pathProgress = 0;
+            layerDone = false;
+          }
+        }, 600);
+      }
+      var idx  = Math.floor(pathProgress);
+      var frac = pathProgress - idx;
+      var p0   = path[idx];
+      var p1   = path[Math.min(idx + 1, pathLen - 1)];
+      nozzleX = p0.x + (p1.x - p0.x) * frac;
+      nozzleY = p0.y + (p1.y - p0.y) * frac;
+
+      /* vibration micro */
+      vibX = (Math.random() - 0.5) * 0.15;
+      vibY = (Math.random() - 0.5) * 0.15;
+
+      /* enregistre le point */
+      trailPoints.push({x: nozzleX, y: nozzleY, layer: curLayer});
+      /* limite mémoire */
+      if (trailPoints.length > 8000) trailPoints.splice(0, 100);
+    }
+
+    t += 0.008;
+  }
+
+  function render() {
+    X.clearRect(0, 0, W, H);
+
+    /* fond dégradé radial subtil */
+    var bg = X.createRadialGradient(cx, cy, 0, cx, cy, W * 0.55);
+    bg.addColorStop(0, 'rgba(0,120,255,0.04)');
+    bg.addColorStop(1, 'transparent');
+    X.fillStyle = bg;
+    X.fillRect(0, 0, W, H);
+
+    drawGrid(0);
+    drawTrail();
+    drawRails();
+    drawNozzle();
+  }
+
+  function loop() {
+    update();
+    render();
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+/* ══ SCENE 1 ENTRANCE ══ */
+(function() {
+  setTimeout(function() {
+    var ids = ['s1-tag','sl1','sl2','sl3','s1sub','s1btns'];
+    ids.forEach(function(id,i) {
+      var el = document.querySelector('.'+id) || document.getElementById(id);
+      /* use class name selectors from HTML */
+    });
+    /* trigger by class */
+    document.querySelectorAll('.s1-tag,.sl,.s1-sub,.s1-btns').forEach(function(el){
+      el.classList.add('show');
+    });
+  }, 140);
+  setTimeout(function() {
+    var hp = document.getElementById('heroPhone');
+    if (hp) { hp.classList.add('show'); }
+  }, 380);
+})();
+
+
 
 /* ══ PHONE CYCLE ══ */
 var phoneObjs = [
@@ -1085,6 +2128,9 @@ function openProduct(catKey, idx) {
     p.classList.remove('active');
     p.style.cssText = '';
   });
+  /* reset pe elements */
+  var pgProd = document.getElementById('page-produit');
+  if (pgProd) pgProd.querySelectorAll('.pe').forEach(function(el){ el.classList.remove('pe-show'); });
 
   /* reset scroll */
   pg.scrollTop = 0;
@@ -1106,6 +2152,7 @@ function openProduct(catKey, idx) {
   
   cur = 'produit';
   setupReveal(pg);
+  setTimeout(function(){ runPageEntrance('produit', pg); }, 80);
 }
 
 /* ══ STORY ══ */
@@ -1369,6 +2416,26 @@ var statsObs = new IntersectionObserver(function(entries) {
 }, { root: document.getElementById('page-home'), threshold: 0.3 });
 var statsEl = document.getElementById('statsRow');
 if (statsEl) statsObs.observe(statsEl);
+
+
+/* ══ PAGE ENTRANCE ANIMATIONS ══ */
+function runPageEntrance(id, pageEl) {
+  if (!pageEl) return;
+  /* Set animation-delay on each .pe so keyframe staggers automatically */
+  pageEl.querySelectorAll('.pe').forEach(function(el, i) {
+    var delay = parseInt(el.dataset.delay || 0) + i * 38;
+    el.style.animationDelay = delay + 'ms';
+    /* force keyframe restart by toggling animationName */
+    el.style.animationName = 'none';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        el.style.animationName = '';
+      });
+    });
+  });
+}
+
+/* re-trigger entrance on tab click — handled by navTo */
 
 </script>
 
