@@ -1250,21 +1250,18 @@ transition: transform .2s ease;
 .h-phrase-old,.scene,.home-scroll { display:none !important; }
 
 /* ══ PAGE ENTRANCE — keyframes CSS, pas de toggle opacity ══ */
-@keyframes peUp    { from { opacity:0; transform:translateY(22px) } to { opacity:1; transform:none } }
-@keyframes peLeft  { from { opacity:0; transform:translateX(-22px)} to { opacity:1; transform:none } }
-@keyframes peRight { from { opacity:0; transform:translateX(22px) } to { opacity:1; transform:none } }
-@keyframes peScale { from { opacity:0; transform:scale(.9)        } to { opacity:1; transform:none } }
+@keyframes peUp    { from { transform:translateY(22px) } to { transform:none } }
+@keyframes peLeft  { from { transform:translateX(-22px) } to { transform:none } }
+@keyframes peRight { from { transform:translateX(22px) } to { transform:none } }
+@keyframes peScale { from { transform:scale(.92) } to { transform:none } }
 
 .pe { opacity:1; }  /* visible par défaut */
 
-/* quand la page est inactive, on met les éléments en attente */
-.page:not(.active) .pe { opacity:0; }
-
 /* au moment où la page devient active, on lance les keyframes */
-.page.active .pe            { animation: peUp    .5s cubic-bezier(.22,1,.36,1) both; }
-.page.active .pe.from-left  { animation: peLeft  .5s cubic-bezier(.22,1,.36,1) both; }
-.page.active .pe.from-right { animation: peRight .5s cubic-bezier(.22,1,.36,1) both; }
-.page.active .pe.from-scale { animation: peScale .5s cubic-bezier(.22,1,.36,1) both; }
+.page.active .pe            { animation: peUp    .5s cubic-bezier(.22,1,.36,1) forwards; }
+.page.active .pe.from-left  { animation: peLeft  .5s cubic-bezier(.22,1,.36,1) forwards; }
+.page.active .pe.from-right { animation: peRight .5s cubic-bezier(.22,1,.36,1) forwards; }
+.page.active .pe.from-scale { animation: peScale .5s cubic-bezier(.22,1,.36,1) forwards; }
 
 /* délais en cascade via data-delay → inline style mis par JS */
 
