@@ -527,8 +527,6 @@ function navTo(id) {
   lv.classList.remove('active');
   en.scrollTop = 0;
   en.classList.add('active');
-  en.classList.add('slide-in');
-  setTimeout(function(){ en.classList.remove('slide-in'); }, 380);
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('on', t.dataset.p === id); });
   /* logo color */
   document.getElementById('logo').style.color = id === 'histoire' ? '#fff' : '';
